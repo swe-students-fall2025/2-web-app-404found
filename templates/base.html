@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+    
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Job Forum</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+<header class="wrap"><h1><a href="{{ url_for('index') }}">Job Forum</a></h1></header>
+<main class="wrap">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+        <ul class="flash">
+            {% for m in messages %}
+                <li>{{ m }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+  {% endwith %}
+  {% block container %}{% endblock %}
+</main>
+<footer class="wrap"><small>© Job Forum</small></footer>
+</body>
+
+</html>
