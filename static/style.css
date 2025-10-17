@@ -159,12 +159,12 @@ header.wrap {
 .nav-top a:hover,
 .nav-sub a:hover {
   background: var(--hover);
+  color: var(--text);
   transform: translateY(-1px);
   box-shadow: 0 2px 8px rgba(17,24,39,.08);
 }
 
-.nav-top a.active,
-.nav-sub a.active,
+.nav-right .btn-profile.is-active,
 .nav-top a.is-active,
 .nav-sub a.is-active {
   background: var(--brand-color);
@@ -172,4 +172,44 @@ header.wrap {
   border-color: var(--brand-color);
   box-shadow: 0 2px 10px rgba(75,108,183,.25);
   transform: none;
+}
+
+.header-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 0.5rem;
+}
+
+.nav-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+}
+
+/* ====== RIGHT-TOP PROFILE BUTTON ====== */
+.nav-right .btn-profile {
+  background-color: #f9fafb; 
+  color: var(--text);
+  text-decoration: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  font-size: 15px;
+  transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+}
+
+.nav-right .btn-profile:hover {
+  background-color: var(--brand-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(75,108,183,.25);
+  transform: translateY(-1px);
+}
+
+
+.nav-right .btn-profile:active {
+  background-color: #3553a4;
+  transform: translateY(0);
 }

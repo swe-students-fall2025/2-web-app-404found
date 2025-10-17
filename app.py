@@ -37,9 +37,14 @@ def forum_home():
     posts = list(db.posts.find().sort("created_at", -1))
     return render_template("forum_home.html", posts=posts, section="forum")
 
+@app.route("/my_posts")
+def my_posts():
+    return render_template("my_posts.html", section="forum")
+
+
 @app.route("/profile")
 def profile():
-    return render_template("profile.html", section="forum")
+    return render_template("profile.html", section="profile")
 
 @app.route("/official")
 def official_home():
