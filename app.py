@@ -36,6 +36,9 @@ def index():
     posts = list(db.posts.find()) 
     return render_template('index.html', posts=posts)
 
+@app.route("/profile")
+def profile():
+    return render_template("profile.html")
 
 @app.route("/post/<pid>", methods=["GET", "POST"])
 def post_detail(pid):

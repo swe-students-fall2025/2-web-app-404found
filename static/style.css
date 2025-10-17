@@ -11,3 +11,54 @@ button { cursor: pointer; }
 .meta { color: #6b7280; font-size: 13px; }
 .flash { background:#fef3c7; border:1px solid #f59e0b; padding:8px 12px; border-radius:8px; }
 .title { font-weight: 600; }
+
+/* ====== NAVIGATION BAR ====== */
+
+header.wrap {
+  text-align: center;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-top {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.5rem;
+}
+
+.nav-top a {
+  text-decoration: none;
+  color: #374151;
+  padding: 0.4rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s;
+}
+
+.nav-top a:hover {
+  background-color: #e5e7eb;
+}
+
+.nav-top a.active {
+  background-color: #4b6cb7;
+  color: white;
+}
+
+.nav-sub {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 0.25rem;
+}
+
+.nav-sub a {
+  text-decoration: none;
+  color: #4b5563;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  font-size: 15px;
+}
+
+.nav-sub a:hover {
+  background-color: #f3f4f6;
+}
