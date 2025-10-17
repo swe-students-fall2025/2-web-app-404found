@@ -29,16 +29,21 @@ def oid(s):
     except: abort(404)
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+@app.route("/forum")
+def forum_home():
     """Main page:
        - GET: display all posts
        - POST: handle new post submission"""
-    posts = list(db.posts.find()) 
-    return render_template('index.html', posts=posts)
+    posts = list(db.posts.find().sort("created_at", -1))
+    return render_template("forum_home.html", posts=posts, section="forum")
 
 @app.route("/profile")
 def profile():
-    return render_template("profile.html")
+    return render_template("profile.html", section="forum")
+
+@app.route("/official")
+def official_home():
+    return render_template("official_home.html", section="official")
 
 @app.route("/post/<pid>", methods=["GET", "POST"])
 def post_detail(pid):
