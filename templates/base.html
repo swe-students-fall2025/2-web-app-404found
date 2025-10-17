@@ -1,15 +1,24 @@
 <!doctype html>
 <html lang="en">
     
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>Job Forum</title>
+<header class="wrap">
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+  <h1><a href="{{ url_for('forum_home') }}">Job Forum</a></h1>
+
+  <nav class="nav-top">
+    <a href="{{ url_for('forum_home') }}" class="active">Forum</a>
+    <a href="{{ url_for('official_home') }}">Official Posts</a>
+  </nav>
+  
+  {% if section == 'forum' %}
+  <nav class="nav-sub">
+    <a href="{{ url_for('forum_home') }}">Home</a>
+    <a href="{{ url_for('profile') }}">Profile</a>
+  </nav>
+  {% endif %}
+</header>
 
 <body>
-<header class="wrap"><h1><a href="{{ url_for('index') }}">Job Forum</a></h1></header>
 <main class="wrap">
   {% with messages = get_flashed_messages() %}
     {% if messages %}

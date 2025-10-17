@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block container %}
 <h2>Write a Post</h2>
-<form method="POST" action="{{ url_for('index') }}" class="card">
+<form method="POST" action="{{ url_for('forum_home') }}" class="card">
   <input type="text"   name="fname"    placeholder="Your name" required>
   <input type="text"   name="ftitle"   placeholder="Job title" required>
   <textarea name="fmessage" placeholder="Job description / message" required></textarea>

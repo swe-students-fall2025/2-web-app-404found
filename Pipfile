@@ -6,21 +6,22 @@ name = "pypi"
 [packages]
 blinker = "*"
 click = "*"
-flask = "==3.1.0"
 flask-debugtoolbar = "*"
 itsdangerous = "*"
 jinja2 = "*"
 markupsafe = "*"
-python-dotenv = "==0.16.0"
 pytest = "*"
 pytest-flask = "*"
 coverage = "*"
 dnspython = "*"
-pymongo = {extras = ["tls", "srv"], version = "==4.10.0"}
 certifi = "*"
 gunicorn = "*"
+flask = "*"
+pymongo = "*"
+python-dotenv = "*"
+flask-login = "*"
 
 [dev-packages]
 
 [requires]
-python_version = "3.9"
+python_version = "3.13"
