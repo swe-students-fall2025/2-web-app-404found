@@ -33,7 +33,8 @@ def index():
     """Main page:
        - GET: display all posts
        - POST: handle new post submission"""
-    pass
+    posts = list(db.posts.find()) 
+    return render_template('index.html', posts=posts)
 
 
 @app.route("/post/<pid>", methods=["GET", "POST"])
