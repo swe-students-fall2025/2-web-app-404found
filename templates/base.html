@@ -1,37 +1,64 @@
 <!doctype html>
 <html lang="en">
-    
-<header class="wrap">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-  <h1><a href="{{ url_for('forum_home') }}">Job Forum</a></h1>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>{{ title or "Job Forum" }}</title>
 
-  <nav class="nav-top">
-    <a href="{{ url_for('forum_home') }}" class="active">Forum</a>
-    <a href="{{ url_for('official_home') }}">Official Posts</a>
-  </nav>
-  
-  {% if section == 'forum' %}
-  <nav class="nav-sub">
-    <a href="{{ url_for('forum_home') }}">Home</a>
-    <a href="{{ url_for('profile') }}">Profile</a>
-  </nav>
-  {% endif %}
-</header>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Trade+Winds&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
 
 <body>
-<main class="wrap">
-  {% with messages = get_flashed_messages() %}
-    {% if messages %}
-        <ul class="flash">
-            {% for m in messages %}
-                <li>{{ m }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-  {% endwith %}
-  {% block container %}{% endblock %}
-</main>
-<footer class="wrap"><small>© Job Forum</small></footer>
-</body>
+  <header class="wrap">
+    <h1><a href="{{ url_for('forum_home') }}">Job Forum</a></h1>
 
+    {% set ep = request.endpoint %}
+
+    <nav class="nav-top">
+      <a href="{{ url_for('forum_home') }}"
+         class="{{ 'is-active' if ep in [
+           'forum_home','forum_list','post_detail','edit_post','delete_post'
+         ] else '' }}">
+        Forum
+      </a>
+
+      <a href="{{ url_for('official_home') }}"
+         class="{{ 'is-active' if ep in [
+           'official_home','official_list'
+         ] else '' }}">
+        Official Posts
+      </a>
+    </nav>
+
+    <nav class="nav-sub">
+      <a href="{{ url_for('forum_home') }}"
+         class="{{ 'is-active' if ep in ['forum_home','forum_list'] else '' }}">
+        Home
+      </a>
+
+      <a href="{{ url_for('profile') }}"
+         class="{{ 'is-active' if ep == 'profile' else '' }}">
+        Profile
+      </a>
+    </nav>
+  </header>
+
+  <main class="wrap">
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        <ul class="flash">
+          {% for m in messages %}
+            <li>{{ m }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+    {% block container %}{% endblock %}
+  </main>
+
+  <footer class="wrap"><small>© Job Forum</small></footer>
+</body>
 </html>
