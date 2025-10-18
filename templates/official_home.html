@@ -9,16 +9,28 @@
     <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
     <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
 
-    <a href="{{ url_for('view_job', job_id=job._id|string) }}">View Details</a>
+    <div class="job-actions">
+      <a
+        href="{{ url_for('view_job', job_id=job['_id']) }}"
+        class="btn-action btn-view"
+        >View Details</a
+      >
+      <a
+        href="{{ job['apply_link'] }}"
+        target="_blank"
+        class="btn-action btn-apply"
+        >Apply</a
+      >
+    </div>
 
-    {% if job._id in user_jobs %}
-    <button disabled>Added to My Jobs</button>
+    {% if job in user_jobs %}
+    <button class="btn added" disabled>✓ Added</button>
     {% else %}
     <form
-      action="{{ url_for('add_to_my_jobs', job_id = job._id|string) }}"
+      action="{{ url_for('add_to_my_jobs', job_id=job['_id']) }}"
       method="post"
     >
-      <button type="submit">Add to My Jobs</button>
+      <button class="btn">Add to My Jobs</button>
     </form>
     {% endif %}
   </div>
