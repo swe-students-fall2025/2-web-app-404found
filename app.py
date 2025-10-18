@@ -12,6 +12,8 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
 
+app.config['SESSION_PERMANENT'] = False
+
 # connect to MongoDB
 client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=certifi.where())
 db = client[os.getenv("MONGO_DBNAME")]
@@ -33,6 +35,8 @@ def oid(s):
 @app.route("/", methods=["GET", "POST"])
 def forum_home():
     all_posts = list(db.posts.find().sort("created_at", -1))
+    for p in all_posts:
+        p["_id"] = str(p["_id"])
     return render_template("forum_home.html", posts=all_posts, section="forum")
 
 
@@ -49,6 +53,8 @@ def my_posts():
         return redirect(url_for("login"))
     
     my_posts = list(db.posts.find({"user_id": user["_id"]}).sort("created_at", -1))
+    for p in my_posts:
+        p["_id"] = str(p["_id"])
     return render_template("my_posts.html", posts=my_posts, section="forum")
 #User
 ##register route
@@ -89,12 +95,14 @@ def login():
         
 
     return render_template("login.html")
+
 ##logout route
 @app.route("/logout")
 def logout():
-    session.pop("username", None)
+    session.clear()
     flash("You have logged out.")
     return redirect(url_for("login"))
+
 ##delete account route
 @app.route("/delete_account", methods=["POST"])
 def delete_account():
@@ -165,7 +173,22 @@ def post_detail(pid):
     """Post detail page:
        - GET: display one post and its comments
        - POST: handle new comment submission"""
-    pass
+    _id = oid(pid)
+    doc = posts.find_one({"_id": _id}) or abort(404)
+    if request.method == "POST":
+        cname = request.form.get("cname","").strip()
+        cmsg  = request.form.get("cmessage","").strip()
+        if not (cname and cmsg):
+            flash("Comment requires Name and Message")
+            return redirect(url_for("post_detail", pid=pid))
+        comments.insert_one({
+            "post_id": _id, "name": cname, "message": cmsg,
+            "created_at": datetime.now(timezone.utc)
+        })
+        flash("Comment added")
+        return redirect(url_for("post_detail", pid=pid))
+    comms = list(comments.find({"post_id": _id}).sort("created_at",-1))
+    return render_template("post.html", doc=doc, comms=comms)
 
 
 @app.route("/post/<pid>/edit", methods=["GET", "POST"])
@@ -173,14 +196,32 @@ def edit_post(pid):
     """Edit post page:
        - GET: display edit form for an existing post
        - POST: save edited content to database"""
-    pass
+    _id = oid(pid)
+    doc = posts.find_one({"_id": _id}) or abort(404)
+    if request.method == "POST":
+        name = request.form.get("fname","").strip()
+        title = request.form.get("ftitle","").strip()
+        msg  = request.form.get("fmessage","").strip()
+        if not (name and title and msg):
+            flash("Name / Title / Message cannot be empty")
+            return redirect(url_for("edit_post", pid=pid))
+        posts.update_one({"_id": _id},
+                         {"$set":{"name":name,"title":title,"message":msg,"updated_at":datetime.utcnow()}})
+        flash("Post updated")
+        return redirect(url_for("post_detail", pid=pid))
+    return render_template("edit.html", doc=doc)
 
 
 @app.route("/post/<pid>/delete", methods=["POST"])
 def delete_post(pid):
     """Delete a post:
        - Triggered by 'Delete' button form submission"""
-    pass
+    _id = oid(pid)
+    posts.delete_one({"_id": _id})
+    comments.delete_many({"post_id": _id})
+    flash("Post deleted")
+    return redirect(url_for("my_posts"))
+
 
 
 if __name__ == "__main__":

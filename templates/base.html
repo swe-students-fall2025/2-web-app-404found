@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>{{ title or "Job Forum" }}</title>
+  <title>{{ title or "Jobhub" }}</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -14,7 +14,7 @@
 <body>
   <header class="wrap header-flex">
     <div class="nav-left">
-      <h1><a href="{{ url_for('forum_home') }}">Job Forum</a></h1>
+      <h1><a href="{{ url_for('forum_home') }}">Jobhub</a></h1>
 
       {% set ep = request.endpoint %}
 
@@ -76,6 +76,6 @@
     {% block container %}{% endblock %}
   </main>
 
-  <footer class="wrap"><small>© Job Forum</small></footer>
+  <footer class="wrap"><small>© Jobhub</small></footer>
 </body>
 </html>
