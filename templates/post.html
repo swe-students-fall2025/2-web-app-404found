@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block container %}
+<h2>{{ doc.title }}</h2>
+<p class="meta">by {{ doc.name }}</p>
+<p>{{ doc.message }}</p>
+
+<hr>
+<h3>Comments</h3>
+<ul class="list">
+  {% for c in comms %}
+    <li class="item">
+      <div><strong>{{ c.name }}</strong></div>
+      <div>{{ c.message }}</div>
+    </li>
+  {% else %}
+    <li>No comments yet</li>
+  {% endfor %}
+</ul>
+
+<h3>Add a comment</h3>
+<form method="POST" class="card">
+  <input type="text" name="cname" placeholder="Your name" required>
+  <textarea name="cmessage" placeholder="Your comment" required></textarea>
+  <button type="submit">Post Comment</button>
+</form>
+{% endblock %}
