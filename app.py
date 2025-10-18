@@ -20,6 +20,7 @@ client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=certifi.where())
 db = client[os.getenv("MONGO_DBNAME")]
 posts = db.posts
 comments = db.comments
+replies = db.replies
 #user collection
 users = db.users
 #job items
@@ -322,6 +323,45 @@ def delete_post(pid):
     flash("Post deleted")
     return redirect(url_for("my_posts"))
 
+# @app.route("/post/<pid>/comment/<cid>/delete", methods=["POST"])
+# def delete_comment(pid, cid):
+#     """Delete a comment:
+#         - shoudl have a delete button on each comment
+#         - should have a new delete button next to each comment"""
+#     _id = oid(cid)
+#     comments.delete_one({"_id": _id})
+#     flash("Comment deleted")
+#     return redirect(url_for("post_detail", pid=pid))
+
+@app.route("/post/<pid>/comment/<cid>/reply", methods=["POST"])
+def reply_to_comments(pid, cid):
+    _pid = oid(pid)
+    _cid = oid(cid)
+    # need to login before replying
+    if "username" not in session:
+        flash("Please log in before replying.")
+        return redirect(url_for("login"))
+     
+    post_doc = posts.find_one({"_id": _pid})
+    parent = comments.find_one({"_id": _cid, "post_id": _pid})
+    if not post_doc or not parent:
+        abort(404)
+
+    user = users.find_one({"username": session["username"]})
+    rmsg = request.form.get("rmessage", "").strip()
+    if not rmsg:
+        flash("Reply cannot be empty.")
+        return redirect(url_for("post_detail", pid=pid))
+    replies.insert_one({
+        "post_id": _pid,
+        "comment_id": _cid,
+        "user_id": user["_id"],
+        "name": user["username"],
+        "message": rmsg,
+        "created_at": datetime.now(timezone.utc)
+    })
+    flash("Reply added!")
+    return redirect(url_for("post_detail", pid=pid))
 
 
 if __name__ == "__main__":
