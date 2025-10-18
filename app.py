@@ -31,17 +31,25 @@ def oid(s):
     except: abort(404)
 
 @app.route("/", methods=["GET", "POST"])
-@app.route("/forum")
 def forum_home():
-    """Main page:
-       - GET: display all posts
-       - POST: handle new post submission"""
-    posts = list(db.posts.find().sort("created_at", -1))
-    return render_template("forum_home.html", posts=posts, section="forum")
+    all_posts = list(db.posts.find().sort("created_at", -1))
+    return render_template("forum_home.html", posts=all_posts, section="forum")
+
 
 @app.route("/my_posts")
 def my_posts():
-    return render_template("my_posts.html", section="forum")
+    if "username" not in session:
+        flash("Please log in to view your posts.")
+        return redirect(url_for("login"))
+    
+    username = session["username"]
+    user = db.users.find_one({"username": username})
+    if not user:
+        flash("User not found.")
+        return redirect(url_for("login"))
+    
+    my_posts = list(db.posts.find({"user_id": user["_id"]}).sort("created_at", -1))
+    return render_template("my_posts.html", posts=my_posts, section="forum")
 #User
 ##register route
 @app.route("/register", methods=["GET", "POST"])
@@ -77,7 +85,7 @@ def login():
             return redirect(url_for("profile"))
         else:
             flash("Invalid username or password.")
-            return redirect(url_for("login"))
+            return redirect(url_for("login"))       
         
 
     return render_template("login.html")
@@ -116,6 +124,41 @@ def profile():
 @app.route("/official")
 def official_home():
     return render_template("official_home.html", section="official")
+
+@app.route("/forum/publish", methods=["GET", "POST"])
+def publish_post():
+    """Main page:
+       - GET: display all posts
+       - POST: handle new post submission"""
+    if request.method == "POST":
+        if "username" not in session:
+            flash("Please log in before posting.")
+            return redirect(url_for("login"))
+        name = session["username"]
+        title = request.form.get("ftitle").strip()
+        message = request.form.get("fmessage").strip()
+
+        if not title or not message:
+            flash("Please fill in both title and message.")
+            return redirect(url_for("forum_home"))
+        
+        # find current user id
+        user = db.users.find_one({"username": name})
+        if not user:
+            flash("User not found.")
+            return redirect(url_for("login"))
+
+        # insert post
+        new_post = {
+            "title": title,
+            "message": message,
+            "name": name,
+            "user_id": user["_id"],
+            "created_at": datetime.now(timezone.utc)
+        }
+        db.posts.insert_one(new_post)
+        flash("Post published successfully!")
+        return redirect(url_for("forum_home"))
 
 @app.route("/post/<pid>", methods=["GET", "POST"])
 def post_detail(pid):
