@@ -133,7 +133,7 @@ def profile():
 def official_home():
     return render_template("official_home.html", section="official")
 
-@app.route("/forum/publish", methods=["GET", "POST"])
+@app.route("/post/publish", methods=["GET", "POST"])
 def publish_post():
     """Main page:
        - GET: display all posts
@@ -170,26 +170,31 @@ def publish_post():
 
 @app.route("/post/<pid>", methods=["GET", "POST"])
 def post_detail(pid):
-    """Post detail page:
-       - GET: display one post and its comments
-       - POST: handle new comment submission"""
     _id = oid(pid)
     doc = posts.find_one({"_id": _id}) or abort(404)
+    comms = list(comments.find({"post_id": _id}).sort("created_at", -1))
+    return render_template("post.html", doc=doc, comms=comms, section="forum", pid = _id)
+
+@app.route("/post/<pid>/comment/add", methods=["GET", "POST"])
+def add_comment(pid):
+    _id = oid(pid)
+    doc = posts.find_one({"_id": _id}) or abort(404)
+
     if request.method == "POST":
-        cname = request.form.get("cname","").strip()
-        cmsg  = request.form.get("cmessage","").strip()
-        if not (cname and cmsg):
-            flash("Comment requires Name and Message")
-            return redirect(url_for("post_detail", pid=pid))
+        if "username" not in session:
+            flash("Please log in before commenting.")
+            return redirect(url_for("login"))
+        user = db.users.find_one({"username": session["username"]})
+        cmsg = request.form.get("cmessage", "").strip()
         comments.insert_one({
-            "post_id": _id, "name": cname, "message": cmsg,
+            "post_id": _id,
+            "user_id": user["_id"],
+            "name": user["username"],
+            "message": cmsg,
             "created_at": datetime.now(timezone.utc)
         })
-        flash("Comment added")
-        return redirect(url_for("post_detail", pid=pid))
-    comms = list(comments.find({"post_id": _id}).sort("created_at",-1))
-    return render_template("post.html", doc=doc, comms=comms)
-
+        flash("Comment added!")
+    return redirect(url_for("post_detail", pid=pid))
 
 @app.route("/post/<pid>/edit", methods=["GET", "POST"])
 def edit_post(pid):
@@ -199,14 +204,13 @@ def edit_post(pid):
     _id = oid(pid)
     doc = posts.find_one({"_id": _id}) or abort(404)
     if request.method == "POST":
-        name = request.form.get("fname","").strip()
         title = request.form.get("ftitle","").strip()
         msg  = request.form.get("fmessage","").strip()
-        if not (name and title and msg):
+        if not (title and msg):
             flash("Name / Title / Message cannot be empty")
             return redirect(url_for("edit_post", pid=pid))
         posts.update_one({"_id": _id},
-                         {"$set":{"name":name,"title":title,"message":msg,"updated_at":datetime.utcnow()}})
+                         {"$set":{"title":title,"message":msg,"updated_at":datetime.utcnow()}})
         flash("Post updated")
         return redirect(url_for("post_detail", pid=pid))
     return render_template("edit.html", doc=doc)
