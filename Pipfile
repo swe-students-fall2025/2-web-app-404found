@@ -4,7 +4,23 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+
+blinker = "*"
+click = "*"
+flask-debugtoolbar = "*"
+itsdangerous = "*"
+jinja2 = "*"
+markupsafe = "*"
+pytest = "*"
+pytest-flask = "*"
+coverage = "*"
+dnspython = "*"
+certifi = "*"
+gunicorn = "*"
 flask = "*"
+pymongo = "*"
+python-dotenv = "*"
+flask-login = "*"
 
 [dev-packages]
 

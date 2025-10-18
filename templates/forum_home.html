@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block container %}
+<h2>Write a Post</h2>
+<form method="POST" action="{{ url_for('publish_post') }}" class="card">
+  <input type="text"   name="ftitle"   placeholder="Job Title" required>
+  <textarea name="fmessage" placeholder="Job description / message" required></textarea>
+  <button type="submit">Publish</button>
+</form>
+
+<h2>Latest Posts</h2>
+<ul class="list">
+  {% for p in posts %}
+  <li class="item">
+    <div>
+      <a class="title" href="{{ url_for('post_detail', pid=p._id) }}">{{ p.title }}</a>
+      <div class="meta">by {{ p.name }}</div>
+    </div>
+    <div class="actions">
+      
+    </div>
+  </li>
+  {% else %}
+  <li>No posts yet</li>
+  {% endfor %}
+</ul>
+{% endblock %}
