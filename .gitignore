@@ -133,6 +133,9 @@ venv.bak/
 # mkdocs documentation
 /site
 
+# spiders
+test.py
+
 # mypy
 .mypy_cache/
 .dmypy.json
