@@ -1,6 +1,7 @@
 
 :root{
   --brand-color:#4b6cb7;
+  --brand-opposit-color:#374151;
   --line:#e5e7eb;
   --hover:#f3f4f6;
   --text:#374151;
@@ -122,6 +123,20 @@ button {
   color: #ef4444;
   border-color: #ef4444;
 }
+
+.btn.added {
+  background-color: var(--brand-opposit-color);
+  color: #fff;
+  border-color: var(--brand-color);
+  cursor: default;
+  box-shadow: 0 2px 8px rgba(183, 109, 75, 0.25);
+  transition: all 0.2s ease;
+}
+.btn.added:hover {
+  transform: none;
+  box-shadow: 0 2px 8px rgba(75,108,183,0.25);
+}
+
 
 .meta {
   color: #6b7280;
@@ -294,4 +309,48 @@ header.wrap {
 .post-card .meta {
   font-size: 0.85rem;
   color: #6b7280;
+}
+
+
+/* ====== JOB CARD ACTION BUTTONS ====== */
+.job-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.btn-action {
+  flex: 1;
+  text-align: center;
+  font-weight: 500;
+  border-radius: 8px;
+  padding: 10px 14px;
+  text-decoration: none;
+  transition: all 0.25s ease;
+}
+
+.btn-view {
+  background: #ffffff;
+  border: 1px solid var(--brand-color);
+  color: var(--brand-color);
+}
+.btn-view:hover {
+  background: var(--brand-color);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(75,108,183,0.25);
+  transform: translateY(-2px);
+}
+
+.btn-apply {
+  background: #ffffff;
+  border: 1px solid var(--brand-color);
+  color: var(--brand-color);
+  font-weight: 500;
+}
+.btn-apply:hover {
+  background: var(--brand-color);
+  color: #fff;
+  box-shadow: 0 3px 10px rgba(75,108,183,0.35);
+  transform: translateY(-2px);
 }

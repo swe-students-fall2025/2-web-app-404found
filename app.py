@@ -89,7 +89,7 @@ def official_home():
     if "user_id" in session:
         user = db.users.find_one({"_id": ObjectId(session["user_id"])})
         if user and "my_jobs" in user and user["my_jobs"]:
-            my_jobs = list(db.jobs.find({"_id": {"$in": list(user["my_jobs"])}}))
+            user_jobs = list(db.jobs.find({"_id": {"$in": list(user["my_jobs"])}}))
 
     return render_template(
         "official_home.html",
