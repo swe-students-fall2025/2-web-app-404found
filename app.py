@@ -79,7 +79,7 @@ def official_home():
     per_page = 20
     skip = (page - 1) * per_page
 
-    jobs_cursor = db.jobs.find().skip(skip).limit(per_page)
+    jobs_cursor = db.jobs.find().sort("datePosted", -1).skip(skip).limit(per_page)
     jobs = list(jobs_cursor)
     total_jobs = db.jobs.count_documents({})
     has_next = total_jobs > page * per_page
@@ -124,7 +124,7 @@ def my_jobs():
     user = db.users.find_one({"_id": ObjectId(session["user_id"])})
     my_jobs = []
     if user and "my_jobs" in user:
-        my_jobs = list(db.jobs.find({"_id": {"$in": [ObjectId(j) for j in user["my_jobs"]]}}))
+        my_jobs = list(db.jobs.find({"_id": {"$in": [ObjectId(j) for j in user["my_jobs"]]}}).sort("datePosted", -1))
 
     return render_template("my_jobs.html", jobs=my_jobs, section="official")
 
