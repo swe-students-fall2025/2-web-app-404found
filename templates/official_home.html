@@ -10,6 +10,7 @@
     <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
 
     <a href="{{ url_for('view_job', job_id=job._id|string) }}">View Details</a>
+    <a href="{{ job.url }}" target="_blank">Apply</a>
 
     {% if job._id in user_jobs %}
     <button disabled>Added to My Jobs</button>
