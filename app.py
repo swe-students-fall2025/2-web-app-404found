@@ -49,6 +49,9 @@ def forum_home():
     all_posts = list(db.posts.find().sort("created_at", -1))
     for p in all_posts:
         p["_id"] = str(p["_id"])
+        if "created_at" in p:
+            p["created_at"] = p["created_at"].astimezone(timezone.utc)
+
     return render_template("forum_home.html", posts=all_posts, section="forum")
 
 
