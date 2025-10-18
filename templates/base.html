@@ -1,81 +1,101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>{{ title or "Jobhub" }}</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ title or "Job Hub" }}</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Trade+Winds&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Trade+Winds&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
 
-<body>
-  <header class="wrap header-flex">
-    <div class="nav-left">
-      <h1><a href="{{ url_for('forum_home') }}">Jobhub</a></h1>
+  <body>
+    <header class="wrap header-flex">
+      <div class="nav-left">
+        <h1><a href="{{ url_for('official_home') }}">Job Hub</a></h1>
 
-      {% set ep = request.endpoint %}
+        {% set ep = request.endpoint %}
 
-      <nav class="nav-top">
-        <a href="{{ url_for('forum_home') }}"
-          class="{{ 'is-active' if ep in [
-            'forum_home','forum_list','post_detail','edit_post','delete_post', 'my_posts'
-          ] else '' }}">
-          Forum
-        </a>
-
-        <a href="{{ url_for('official_home') }}"
-          class="{{ 'is-active' if ep in [
+        <nav class="nav-top">
+          <a
+            href="{{ url_for('official_home') }}"
+            class="{{ 'is-active' if ep in [
             'official_home','official_list'
-          ] else '' }}">
-          Official Posts
-        </a>
-      </nav>
+          ] else '' }}"
+          >
+            Official Posts
+          </a>
+          <a
+            href="{{ url_for('forum_home') }}"
+            class="{{ 'is-active' if ep in [
+            'forum_home','forum_list','post_detail','edit_post','delete_post', 'my_posts'
+          ] else '' }}"
+          >
+            Forum
+          </a>
+        </nav>
 
-      {% if section == "forum" %}
+        {% if section == "forum" %}
         <nav class="nav-sub">
-          <a href="{{ url_for('forum_home') }}"
-            class="{{ 'is-active' if ep in ['forum_home','forum_list'] else '' }}">
-            Home
+          <a
+            href="{{ url_for('forum_home') }}"
+            class="{{ 'is-active' if ep in ['forum_home','forum_list'] else '' }}"
+          >
+            Main Board
           </a>
 
-          <a href="{{ url_for('my_posts') }}"
-            class="{{ 'is-active' if ep == 'my_posts' else '' }}">
+          <a
+            href="{{ url_for('my_posts') }}"
+            class="{{ 'is-active' if ep == 'my_posts' else '' }}"
+          >
             My Posts
           </a>
         </nav>
-      {% elif section == "official" %}
+        {% elif section == "official" %}
         <nav class="nav-sub">
-          <a href="{{ url_for('official_home') }}"
-            class="{{ 'is-active' if ep == 'official_home' else '' }}">
+          <a
+            href="{{ url_for('official_home') }}"
+            class="{{ 'is-active' if ep == 'official_home' else '' }}"
+          >
             Announcements
           </a>
+          <a
+            href="{{ url_for('my_jobs') }}"
+            class="{{ 'is-active' if ep == 'my_posts' else '' }}"
+          >
+            My Jobs
+          </a>
         </nav>
-      {% endif %}
+        {% endif %}
+      </div>
 
-    </div>
+      <div class="nav-right">
+        <a
+          href="{{ url_for('profile') }}"
+          class="btn-profile {% if request.endpoint == 'profile' %}is-active{% endif %}"
+          >👤 Profile</a
+        >
+      </div>
+    </header>
 
-    <div class="nav-right">
-      <a href="{{ url_for('profile') }}" class="btn-profile {% if request.endpoint == 'profile' %}is-active{% endif %}">👤 Profile</a>
-    </div>
-  </header>
+    <main class="wrap">
+      {% with messages = get_flashed_messages() %} {% if messages %}
+      <ul class="flash">
+        {% for m in messages %}
+        <li>{{ m }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %} {% endwith %} {% block container %}{% endblock %}
+    </main>
 
-
-  <main class="wrap">
-    {% with messages = get_flashed_messages() %}
-      {% if messages %}
-        <ul class="flash">
-          {% for m in messages %}
-            <li>{{ m }}</li>
-          {% endfor %}
-        </ul>
-      {% endif %}
-    {% endwith %}
-    {% block container %}{% endblock %}
-  </main>
-
-  <footer class="wrap"><small>© Jobhub</small></footer>
-</body>
+    <footer class="wrap"><small>© Jobhub</small></footer>
+  </body>
 </html>
