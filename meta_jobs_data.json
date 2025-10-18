@@ -1,0 +1,244 @@
+[
+  {
+    "jobID": "1436181490732782",
+    "title": "Software Engineer, Machine Learning",
+    "datePosted": "2025-06-10T13:59:00-07:00",
+    "location": [
+      "Sunnyvale, CA",
+      "Bellevue, WA",
+      "Redmond, WA",
+      "Menlo Park, CA",
+      "Seattle, WA",
+      "Burlingame, CA",
+      "Washington, DC",
+      "Boston, MA",
+      "New York, NY",
+      "San Francisco, CA",
+      "Fremont, CA"
+    ],
+    "description": "Meta is seeking talented engineers to join our teams in building cutting-edge products that connect billions of people around the world. As a member of our team, you will have the opportunity to work on complex technical problems, build new features, and improve existing products across various platforms, including mobile devices and web applications. Our teams are constantly pushing the boundaries of user experience, and we're looking for passionate individuals who can help us advance the way people connect globally. If you're interested in joining a world-class team of industry veterans and working on exciting projects that have a significant impact, we encourage you to apply.",
+    "qualifications": "Bachelor's degree in Computer Science, Computer Engineering, relevant technical field, or equivalent practical experience&nbsp;6+ years of programming experience in a relevant language or 3+ years of experience + PhD&nbsp;Track record of setting technical direction for a team, driving consensus and successful cross-functional partnerships&nbsp;Experience building maintainable and testable code bases, including API design and unit testing techniques 2+ years of experience in one or more of the following areas: machine learning, recommendation systems, pattern recognition, data mining, artificial intelligence, or a related technical field&nbsp;Experience with developing machine learning models at scale from inception to business impact&nbsp;Knowledge developing and debugging in C/C++ and Java&nbsp;Experience building and shipping high quality work and achieving high reliability&nbsp;Experience improving quality through thoughtful code reviews, appropriate testing, proper rollout, monitoring, and proactive changes&nbsp;Exposure to architectural patterns of large scale software applications&nbsp;Experience with scripting languages such as PyTorch, TensorFlow, Python, JavaScript or Hack",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/1436181490732782"
+  },
+  {
+    "jobID": "677160418622314",
+    "title": "Software Engineer, Infrastructure",
+    "datePosted": "2025-06-10T13:07:44-07:00",
+    "location": [
+      "Sunnyvale, CA",
+      "Los Angeles, CA",
+      "Remote, US",
+      "Bellevue, WA",
+      "Redmond, WA",
+      "Menlo Park, CA",
+      "Seattle, WA",
+      "Burlingame, CA",
+      "Boston, MA",
+      "New York, NY",
+      "San Francisco, CA",
+      "Fremont, CA"
+    ],
+    "description": "Meta is seeking talented engineers to join our teams in building cutting-edge products that connect billions of people around the world. As a member of our team, you will have the opportunity to work on complex technical problems, build new features, and improve existing products across various platforms, including mobile devices and web applications. Our teams are constantly pushing the boundaries of user experience, and we're looking for passionate individuals who can help us advance the way people connect globally. If you're interested in joining a world-class team of industry veterans and working on exciting projects that have a significant impact, we encourage you to apply.",
+    "qualifications": "Bachelor's degree in Computer Science, Computer Engineering, relevant technical field, or equivalent practical experience&nbsp;6+ years of programming experience in a relevant language or 3+ years of experience + PhD&nbsp;Track record of setting technical direction for a team, driving consensus and successful cross-functional partnerships&nbsp;Experience building maintainable and testable code bases, including API design and unit testing techniques 6+ years relevant experience building large-scale infrastructure applications or similar experience&nbsp;Experience with scripting languages such as Python, Javascript or Hack&nbsp;Experience designing, analyzing and improving efficiency, scalability, and stability of various system resources&nbsp;Experience owning a component, feature or system&nbsp;Experience building and shipping high quality work and achieving high reliability&nbsp;Experience improving quality through thoughtful code reviews, appropriate testing, proper rollout, monitoring, and proactive changes&nbsp;Exposure to architectural patterns of large scale software applications&nbsp;Experience in programming languages such as C, C++, Java",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/677160418622314"
+  },
+  {
+    "jobID": "1092822929374881",
+    "title": "Product Design Engineer",
+    "datePosted": "2025-06-11T10:11:46-07:00",
+    "location": [
+      "Sunnyvale, CA",
+      "Redmond, WA",
+      "Burlingame, CA",
+      "Seattle, WA"
+    ],
+    "description": "At Reality Labs we aim to bring together cross-disciplinary minds in one place to deliver on our mission: build tools that help people feel connected, anytime, anywhere. As a Product Design Engineer, you will take a critical role in developing hardware systems for VR, AR, or New Technology Initiatives. You will become part of a team exploring developing concepts through prototyping and into mass-production consumer electronics. You will work as part of a cross functional team requiring collaboration in domains other than mechanical engineering. Our teams support mechanical engineering fundamentals, prototyping skills, CAD fluency, manufacturing process knowledge, and experience designing consumer electronics.",
+    "qualifications": "BS in Mechanical Engineering&nbsp;8+ years of industry experience in mechanical design&nbsp;Experience in Design for Manufacturability (DFM), Design for Assembly (DFA), statistical tolerance analysis techniques, functional dimensioning, geometric tolerancing, and 3D/2D CAD&nbsp;Working knowledge in material properties, such as plastics, metal, adhesive, glass, etc&nbsp;Testing and analysis experience (FEA, Simulation, Design of Experiments, etc.)&nbsp;Knowledge of high-volume manufacturing techniques (stamping, machining, injection molding, etc.) 10+ years of product design and development experience of handheld and/or wearable electronics for high volume manufacturing, including full systems ownership&nbsp;MS or PhD in Mechanical Engineering&nbsp;Experience designing handheld and wearable electronics for high volume manufacturing&nbsp;Experience with NX&nbsp;Experience with products cosmetic surface treatments and interfacing with industrial design teams&nbsp;Mandarin and/or Cantonese language skills&nbsp;Experience designing for human factors",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/1092822929374881"
+  },
+  {
+    "jobID": "745855501804954",
+    "title": "Robotics Studio Hardware Systems Mechanical Engineer",
+    "datePosted": "2025-10-14T11:18:58-07:00",
+    "location": [
+      "Redmond, WA",
+      "Burlingame, CA"
+    ],
+    "description": "Meta Robotics Studio is seeking  a Hardware Systems Mechanical Engineer who will design, develop, and support hardware systems for device use cases, with a focus on prototype development and reliability testing. This role is responsible for building and maintaining test rigs and engineering solutions to validate hardware performance in real-world and engineering scenarios. This engineer will collaborate closely with cross-functional teams to ensure hardware solutions meet program requirements and support rapid iteration.\n\nAt Meta, we’re building the future of human connection and the technology that enables it. This means continuously inventing and developing technologies for the next generation of experiences. To continue our efforts in the path to AGI, and as we move closer to a future with intelligent robots and advanced AI models, we're hiring talent across a broad range of disciplines from robotics hardware to system software, machine perception, and artificial intelligence. These crucial projects and initiatives taken on by this team have never been done before, so you have a rare opportunity to help us create new ways people connect around the world.",
+    "qualifications": "Bachelor’s degree or equivalent experience in Mechanical Engineering or related field&nbsp;5+ years of experience in hardware systems design, prototyping, and testing&nbsp;Experience with test rig development and reliability validation&nbsp;Experience with technical communication and documentation skills&nbsp;Experience collaborating with engineering, manufacturing, and field teams Masters degree or equivalent experience in Engineering, Science, or a related field&nbsp;Experience working in a highly collaborative, cross-functional environment while communicating complex concepts clearly and succinctly&nbsp;Experience optimizing design of existing products or devices",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/745855501804954"
+  },
+  {
+    "jobID": "4053562201561174",
+    "title": "Reliability Engineer",
+    "datePosted": "2025-10-14T10:58:09-07:00",
+    "location": [
+      "Redmond, WA",
+      "Burlingame, CA"
+    ],
+    "description": "Meta Robotics Studio is seeking a Reliability Engineer who will define and implement reliability processes and systems to ensure the long-term performance and robustness of prototypes and production devices. This role is responsible for developing and executing reliability test plans, validating results, and driving continuous improvement in collaboration with design, test, and manufacturing teams.\n\nAt Meta, we’re building the future of human connection and the technology that enables it. This means continuously inventing and developing technologies for the next generation of experiences. To continue our efforts in the path to AGI, and as we move closer to a future with intelligent robots and advanced AI models, we're hiring talent across a broad range of disciplines from robotics hardware to system software, machine perception, and artificial intelligence. These crucial projects and initiatives taken on by this team have never been done before, so you have a rare opportunity to help us create new ways people connect around the world.",
+    "qualifications": "Bachelor’s degree or equivalent experience in Engineering or a related field&nbsp;5+ years of experience in reliability engineering, testing, and validation&nbsp;Experience with analytical thinking and problem-solving skills&nbsp;Experience developing reliability processes and metrics&nbsp;Experience collaborating across design, test, and manufacturing functions Masters degree or equivalent experience in Engineering, Science, or a related field&nbsp;Experience working in a highly collaborative, cross-functional environment while communicating complex concepts clearly and succinctly&nbsp;Experience with working in an ambiguous environment to solve problems&nbsp;Experience optimizing design of existing products or devices",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/4053562201561174"
+  },
+  {
+    "jobID": "805901248891018",
+    "title": "Robotics Studio Systems Integration Engineer",
+    "datePosted": "2025-10-14T10:25:39-07:00",
+    "location": [
+      "Redmond, WA",
+      "Burlingame, CA"
+    ],
+    "description": "Meta Robotics Studio is seeking a Systems Integration Engineer who will lead the design and integration of complex test stations and systems, with a focus on requirements definition, technical communication, and cross-functional collaboration. This role ensures robust, scalable solutions for device validation and reliability testing, and serves as a key technical liaison across engineering, manufacturing, and operations teams.\n\nAt Meta, we’re building the future of human connection and the technology that enables it. This means continuously inventing and developing technologies for the next generation of experiences. To continue our efforts in the path to AGI, and as we move closer to a future with intelligent robots and advanced AI models, we're hiring talent across a broad range of disciplines from robotics hardware to system software, machine perception, and artificial intelligence. These crucial projects and initiatives taken on by this team have never been done before, so you have a rare opportunity to help us create new ways people connect around the world.",
+    "qualifications": "Bachelor’s degree or equivalent experience in Engineering or a related field&nbsp;7+ years of experience in systems integration, test station design, and technical leadership&nbsp;Experience leading cross-functional teams and driving complex projects&nbsp;Experience communicating, documenting, and mentoring across teams&nbsp;Experience in defining requirements and system-level problem solving Masters degree or equivalent experience in Engineering, Science, or a related field&nbsp;Experience working in a highly collaborative, cross-functional environment while communicating complex concepts clearly and succinctly&nbsp;Experience with dealing with ambiguity and developing solutions that unblock research&nbsp;Experience optimizing design of existing products or devices",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/805901248891018"
+  },
+  {
+    "jobID": "1782836382378900",
+    "title": "Industrial Designer",
+    "datePosted": "2025-10-14T10:15:42-07:00",
+    "location": [
+      "Redmond, WA",
+      "Seattle, WA"
+    ],
+    "description": "Meta Reality Labs is shaping the future of technology and Meta’s Industrial Design team is helping bring this next generation of hardware to life. You bring experience creating world class solutions and use strategic thinking and hands-on skills to create compelling products.",
+    "qualifications": "A Bachelor's degree in Industrial Design or related field&nbsp;5+ years of experience developing consumer electronics or wearable tech products&nbsp;Communication, visualization, and problem solving skills&nbsp;Fluid command of surfacing in Rhino 3D, Solidworks, Creo or NX&nbsp;Ability to explore and refine ideas through 2D visualization and physical prototyping&nbsp;Expertise in designing for mass production&nbsp;Excel in navigating highly ambiguous situations ",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/1782836382378900"
+  },
+  {
+    "jobID": "679961588479426",
+    "title": " Research Scientist Intern, Language and Agents (PhD)",
+    "datePosted": "2025-10-06T08:57:38-07:00",
+    "location": [
+      "Bellevue, WA",
+      "Menlo Park, CA",
+      "Seattle, WA",
+      "New York, NY"
+    ],
+    "description": "Meta was built to help people connect and share, and over the last decade our tools have played a critical part in changing how people around the world communicate with one another. With over a billion people using the service and more than fifty offices around the globe, a career at Meta offers countless ways to make an impact in a fast growing organization.\n\nMeta is seeking Research Interns to join our Generative AI efforts across modalities (images, video, 3D, audio, etc.) . We are committed to advancing the field of artificial intelligence by making fundamental advances in technologies to help interact with and understand our world. We are seeking individuals passionate in areas such as generative modeling, deep learning, computer vision, audio and speech processing, natural language processing, machine learning, reinforcement learning, computational statistics, and applied mathematics. Our interns have an opportunity to make core algorithmic advances and apply their ideas at an unprecedented scale.\n\nOur internships are twelve (12) to sixteen (16), or twenty-four (24) weeks long and we have various start dates throughout the year.\n",
+    "qualifications": "Currently has or is in the process of obtaining a Ph.D. degree in Computer Science, Artificial Intelligence, Generative AI, or relevant technical field&nbsp;Must obtain work authorization in the country of employment at the time of hire and maintain ongoing work authorization during employment&nbsp;Experience with Python, C++, C, Java or other related languages&nbsp;Experience building systems based on machine learning and/or deep learning methods Intent to return to the degree program after the completion of the internship/co-op&nbsp;Proven track record of achieving significant results as demonstrated by grants, fellowships, patents, as well as first-authored publications at leading workshops or conferences such as NeurIPS, ICML, ICLR, CVPR, ICCV, ECCV, ACL or similar&nbsp;Experience working and communicating cross functionally in a team environment&nbsp;Experience in advancing AI techniques, including core contributions to open source libraries and frameworks in computer vision&nbsp;Experience solving analytical problems using quantitative approaches&nbsp;Experience setting up ML experiments and analyzing their results&nbsp;Experience manipulating and analyzing complex, large scale, high-dimensionality data from varying sources&nbsp;Experience in utilizing theoretical and empirical research to solve problems&nbsp;Experience with deep learning frameworks",
+    "employmentType": "Internship",
+    "url": "https://www.metacareers.com/jobs/679961588479426"
+  },
+  {
+    "jobID": "2486789151677735",
+    "title": "Software Engineer, Infrastructure",
+    "datePosted": "2025-06-10T13:24:53-07:00",
+    "location": [
+      "Sunnyvale, CA",
+      "Remote, US",
+      "Bellevue, WA",
+      "Redmond, WA",
+      "Menlo Park, CA",
+      "Seattle, WA",
+      "Burlingame, CA",
+      "Boston, MA",
+      "New York, NY",
+      "San Francisco, CA"
+    ],
+    "description": "Meta is seeking talented experienced engineers to join our teams in building cutting-edge products that connect billions of people around the world. As a member of our team, you will have the opportunity to work on complex technical problems, build new features, and improve existing products across various platforms, including mobile devices and web applications. Our teams are constantly pushing the boundaries of user experience, and we're looking for passionate individuals who can help us advance the way people connect globally. If you're interested in joining a world-class team of engineers and researchers to work on exciting projects that have significant impact, we encourage you to apply.",
+    "qualifications": "Bachelor's degree in Computer Science, Computer Engineering, relevant technical field, or equivalent practical experience&nbsp;8+ years of programming experience in a relevant language OR 4+ years experience with a PhD&nbsp;Demonstrated experience driving change within an organization and leading complex technical projects&nbsp;Experience utilizing data and analysis to explain technical problems and provide detailed feedback and solutions Experience in programming languages such as C, C++, or Java, and scripting languages such as Python, Javascript, or Hack&nbsp;Experience improving quality through thoughtful code reviews, appropriate testing, proper rollout, monitoring, and proactive changes&nbsp;6+ years relevant experience building large-scale infrastructure applications or similar experience",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/2486789151677735"
+  },
+  {
+    "jobID": "779418424938419",
+    "title": "Information Architect",
+    "datePosted": "2025-09-24T17:00:26-07:00",
+    "location": [
+      "Austin, TX",
+      "Menlo Park, CA",
+      "Seattle, WA",
+      "New York, NY",
+      "San Francisco, CA",
+      "Fremont, CA"
+    ],
+    "description": "The Global People Operations team drives transformational employee experiences through innovative technology and strategic knowledge systems. Within People Ops, our HR Technology team operates as a strategic innovation hub, leveraging AI, advanced analytics, and cutting-edge content strategy to reshape how our organization learns, adapts, and scales.\n\nWe're seeking an Information Architect who will design and lead transformational technology solutions that revolutionize how our global workforce accesses, creates, and leverages organizational knowledge. We're looking for someone with serious architecture chops who can design scalable, secure, and easy-to-maintain content and knowledge systems. This role will lead the implementation and deployment of AI and machine learning solutions to advance content intelligence and automate knowledge processes. They will leverage data from analytics, user research, and business metrics to inform technical decisions and guide future planning; as well as identifying emerging technologies and pilot innovative solutions that drive transformation and deliver impact at scale within a large enterprise environment.",
+    "qualifications": "Bachelor's degree in a directly related field, or equivalent practical experience&nbsp;10+ years of progressive experience in enterprise content architecture, knowledge systems design, or HR technology solution development&nbsp;4+ years of hands-on experience developing complex taxonomies, ontologies, and knowledge architectures for AI/ML applications and large-scale systems&nbsp;Experience implementing AI-enhanced content solutions, including machine learning classification, semantic search, or conversational AI systems&nbsp;Experience with modern data technologies including vector databases, graph databases, knowledge graphs, and big data platforms&nbsp;Advanced experience with content management platforms, GraphQL, metadata management, and structured content strategies&nbsp;Demonstrated track record of leading global technical initiatives with cross-functional stakeholder collaboration and business impact delivery&nbsp;Strategic thinking experience in technology roadmapping, competitive analysis, and innovation planning&nbsp;Proficiency in agile methodologies and experience managing complex, ambiguous technical initiatives&nbsp;Proven communication skills with experience influencing at all levels and drive organizational change&nbsp;Experience with interactive developer environments to create, iterate and deliver solutions, in partnership with integrated agentic AI coding tools Master's degree in Information Science, Computer Science, Library Science, or equivalent technical field&nbsp;Advanced certifications in AI/ML, cloud architecture, or enterprise content management&nbsp;Proficiency in programming languages such as Python, JavaScript, Go, or Java with experience in AI/ML frameworks&nbsp;Background in conversational AI development, natural language processing, or generative AI implementations&nbsp;Functional knowledge of HR domain expertise including benefits, compensation, payroll, and global regulatory compliance&nbsp;Experience with enterprise integration platforms (MuleSoft, Workday, Salesforce) and advanced analytics tools&nbsp;Track record of successful vendor partnerships for AI technology implementation and strategic technology consulting&nbsp;Experience leading innovation initiatives in global technology environments&nbsp;Understanding of AI ethics and responsible AI development in enterprise systems",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/779418424938419"
+  },
+  {
+    "jobID": "2062094804607790",
+    "title": "Global Operations Analytics Engineer ",
+    "datePosted": "2025-10-13T14:53:39-07:00",
+    "location": [
+      "Los Lunas, NM",
+      "Sarpy County, NE",
+      "Henrico, VA",
+      "Mesa, AZ",
+      "Aiken, SC",
+      "Kansas City, MO",
+      "Valencia, NM",
+      "Ashburn, VA",
+      "Temple, TX",
+      "Rayville, LA",
+      "Newton County, GA",
+      "Austin, TX",
+      "Hillsboro, OR",
+      "Gallatin, TN",
+      "Reston, VA",
+      "Forest City, NC",
+      "Menlo Park, CA",
+      "Polk County, IA",
+      "Montgomery, AL",
+      "Jeffersonville, IN",
+      "Papillion, NE",
+      "Prineville, OR",
+      "Cheyenne, WY",
+      "Fort Worth, TX",
+      "Aurora, IL",
+      "Stanton Springs, GA",
+      "Newark, CA",
+      "DeKalb, IL",
+      "Chandler, AZ",
+      "New Albany, OH",
+      "Altoona, IA",
+      "Huntsville, AL",
+      "Rosemount, MN",
+      "Eagle Mountain, UT",
+      "Houston, TX",
+      "Kuna, ID"
+    ],
+    "description": "Meta is seeking a Global Operations Analytics Engineer to join our Data Center Site Operations team. Our data centers are the foundation upon which our rapidly scaling infrastructure efficiently operates and upon which our services are delivered.\n\nThe Global Operations Analytics Engineer leads the development of analytics data sets and use cases to support and enable the effective and efficient use of Meta’s global server fleet. As we grow our data center fleet to support Meta’s products, this role leverages data and insights to drive decisions that enable predictability, consistency, and proactive actions, allowing us to operate efficiently and reliably at scale.\n\nYou have a demonstrated understanding of AI's business applications and the experience to identify, scope and deliver AI-enabled and automated solutions that improve operational efficiency, and data insights generated by the analytics team.  While the you won’t be building AI models, you will be involved in the design, development, and deployment of intelligent solutions that reduce the operational burden of identifying analytical insights and enabling us to focus on strategic, high-value projects. This role will directly impact the scalability and efficiency of our operations through proactive identification, automation, and resolution of routine tasks, inefficiencies, and incidents.\n\nIn addition, this is a crucial role in translating data into action and identifying opportunities for efficiency and effectiveness. You are expected to provide meaningful insights into operational performance and make recommendations and actionable strategies to key stakeholders. You love exploring white space and creating impact from the ground up in an ever changing environment, with a demonstrated track record of thought leadership and impact in developing analytics and metrics-based programs.",
+    "qualifications": "Degree in an analytical field (e.g. Computer Science, Engineering, Mathematics, Statistics, Operations Research, Data Science, Management Science or commensurate experience)&nbsp;7+ years of experience in analytics, engineering, use of AI and/or workflow automation  for business improvement&nbsp;7+ years of SQL development experience writing queries, R or Python&nbsp;Hands-on experience with AI/ML frameworks (e.g. TensorFlow, PyTorch, Scikit-learn) and automation tools/platforms&nbsp;Significant experience with data visualization tools and leveraging data driven models to drive business decisions&nbsp;Experience with statistics (e.g. statistics basics, statistical modeling, experimental design, hypothesis testing, etc.)&nbsp;Demonstrated experience with proactively identifying, scoping and implementing solutions&nbsp;Hands-on experience analyzing and interpreting data, drawing conclusions, defining recommended actions, and reporting results across stakeholders Experience working in a large-scale data center environment&nbsp;Leadership and/or team management experience&nbsp;Experience designing measurement systems to assess large scale performance",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/2062094804607790"
+  },
+  {
+    "jobID": "673251402075579",
+    "title": "Product Designer Engineer",
+    "datePosted": "2025-10-10T01:01:34-07:00",
+    "location": [
+      "Shanghai, China"
+    ],
+    "description": "At Reality Labs we aim to bring together the brightest cross-disciplinary minds in one place to deliver on our mission: build tools that help people feel connected, anytime, anywhere. As a Product Design Engineer, you will take a critical role in developing hardware systems for MR, AR, or New Technology Initiatives. You will become part of a team exploring developing concepts through prototyping and into mass-production consumer electronics. You will work as part of a cross functional team requiring collaboration and curiosity in domains other than mechanical engineering.  Our team supports mechanical engineering fundamentals, prototyping skills, CAD fluency, manufacturing process knowledge, and experience designing consumer electronics.",
+    "qualifications": "Bachelor's degree in Mechanical, Materials, or Optics Engineering or equivalent industry experience&nbsp;6+ years of product design and development experience of high volume consumer electronics, including complex subsystems and/or full systems ownership&nbsp;Experience performing and designing DOEs, data analysis, SPC control, Gauge R&R, root cause investigation, failure analysis, and implementing corrective action&nbsp;Experience in Design for Manufacturability (DFM), Design for Assembly (DFA), statistical tolerance analysis techniques, functional dimensioning, GD&T, and 3D/2D CAD&nbsp;Knowledge of high-volume manufacturing techniques (stamping, machining, 3D printing, injection molding, etc.)&nbsp;Working knowledge in material properties, such as plastics, metal, adhesive&nbsp;Testing and analysis experience (FEA, Simulation, Design of Experiments, etc.)&nbsp;Experience leading communications with cross-functional partners, fluent English Experience with NX CAD Experience designing and shipping products with Asia-based supply chain&nbsp;Experience on cell phone, tablet, Laptop design, or other complex consumer electronics products design&nbsp;Familiar with structural & thermal FEA",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/673251402075579"
+  },
+  {
+    "jobID": "1229945984832289",
+    "title": "Product Designer",
+    "datePosted": "2025-06-10T11:18:20-07:00",
+    "location": [
+      "Remote, US",
+      "Bellevue, WA",
+      "Menlo Park, CA",
+      "Seattle, WA",
+      "Burlingame, CA",
+      "New York, NY",
+      "San Francisco, CA"
+    ],
+    "description": "At Meta, we’re shaping innovative experiences in service of giving people the power to build community and bring the world closer together. Our multidisciplinary design teams are creating new ways to help people connect, find communities and grow businesses. Together, we are committed to building innovative technologies — Facebook, Instagram, Messenger, WhatsApp, Workplace, Meta Quest and more — to serve billions of people around the globe.\n\nAs a product designer at Meta, you’ll have the opportunity to play a central role in the way we build technologies — ensuring they are valuable, easy to use and of the highest level of craft and execution. You’ll be involved in every aspect of the product development process, from brainstorming the next great product innovation to tweaking pixels right before launch. We’ll expect you to utilize your full range of product design, interaction design and visual design skills, while contributing to high-level strategic decisions with product and executive partners.\n\nJoin a broad group of thinkers and do some of the most meaningful work of your career.\n\nThis posting represents different full-time roles across the Meta company.",
+    "qualifications": "Bachelor's degree in Design, Human-Computer Interaction, Computer Science, or a related field&nbsp;6+ years of experience designing complex software products, end to end, with a focus on user experience, interaction, and visual design that meet business objectives&nbsp;Experience conducting complex research studies and drives business growth through design-led innovation&nbsp;Experience leading end-to-end development efforts, drives progress with Cross Functional Partner (XFN) teams, develops design roadmaps, and makes high-impact decisions balancing user needs with business growth objectives&nbsp;Expertise in advanced prototyping techniques, such as creating functional prototypes or using emerging technologies Experience showcasing your end-to-end design process across multiple projects, that include interaction and visual design artifacts, multiple iterations, and high-fidelity prototypes&nbsp;Experience connecting your work with other related initiatives across the company while driving collaboration&nbsp;Proven leadership in non-product dimensions that have made a team stronger and positively impacted the work environment",
+    "employmentType": "Full-time",
+    "url": "https://www.metacareers.com/jobs/1229945984832289"
+  }
+]

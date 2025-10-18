@@ -107,6 +107,11 @@ ipython_config.py
 # PEP 582; used by e.g. github.com/David-OConnor/pyflow
 __pypackages__/
 
+# for crawlers
+test.py
+crawlers/
+job_posts/
+
 # Celery stuff
 celerybeat-schedule
 celerybeat.pid
