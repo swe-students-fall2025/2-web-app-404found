@@ -5,22 +5,31 @@
 <p>{{ doc.message }}</p>
 
 <hr>
+
+<h3>Add a comment</h3>
+<form method="POST" action="{{ url_for('add_comment', pid=pid) }}"  class="card">
+  <textarea name="cmessage" placeholder="Your comment" required></textarea>
+  <button type="submit">Post Comment</button>
+</form>
+
+<hr>
 <h3>Comments</h3>
 <ul class="list">
   {% for c in comms %}
     <li class="item">
-      <div><strong>{{ c.name }}</strong></div>
-      <div>{{ c.message }}</div>
+      <div>
+        <strong>{{ c.name }}</strong>
+        <span class="meta">
+          — {{ c.created_at.strftime('%Y-%m-%d %H:%M') if c.created_at else '' }}
+        </span>
+      </div>
+      <br>
+      <div><p>{{ c.message }}</p></div>
     </li>
   {% else %}
     <li>No comments yet</li>
   {% endfor %}
 </ul>
 
-<h3>Add a comment</h3>
-<form method="POST" class="card">
-  <input type="text" name="cname" placeholder="Your name" required>
-  <textarea name="cmessage" placeholder="Your comment" required></textarea>
-  <button type="submit">Post Comment</button>
-</form>
+
 {% endblock %}
