@@ -13,7 +13,7 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
 
-app.config['SESSION_PERMANENT'] = False
+# app.config['SESSION_PERMANENT'] = False
 
 # connect to MongoDB
 client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=certifi.where())
@@ -85,8 +85,8 @@ def official_home():
     user_jobs = []
     if "user_id" in session:
         user = db.users.find_one({"_id": ObjectId(session["user_id"])})
-        if user and "my_jobs" in user:
-            user_jobs = [ObjectId(j) for j in user["my_jobs"]]
+        if user and "my_jobs" in user and user["my_jobs"]:
+            my_jobs = list(db.jobs.find({"_id": {"$in": list(user["my_jobs"])}}))
 
     return render_template(
         "official_home.html",
@@ -219,9 +219,9 @@ def profile():
     return render_template("profile.html", section="profile", username=username)
 
 
-@app.route("/official")
-def official_home():
-    return render_template("official_home.html", section="official")
+# @app.route("/official")
+# def official_home():
+#     return render_template("official_home.html", section="official")
 
 @app.route("/post/publish", methods=["GET", "POST"])
 def publish_post():
