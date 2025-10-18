@@ -21,8 +21,11 @@ Our vision is to build an interactive and inclusive Job Forum web application wh
 - I want to able to delete my posts so that I can remove mistaken contents
 - I want to save or bookmark posts that I find useful so that I can easily revisit them later
 - I want to reply to comments under my post so that I can engage in direct conversations and clarify information.
+- I want to upvote/like posts and comments so that helpful content surfaces.
+- I want to edit my profile so that others understand my background.
 ### As an admin:
 - I want to review and remove inappropriate content so that the community stays professional and safe.
+- I want to suspend or reinstate user accounts so that the community stays safe.
 
 ## Steps necessary to run the software
 
