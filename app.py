@@ -4,6 +4,7 @@ import certifi
 from bson import ObjectId
 from datetime import datetime, timezone
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
 
 # load .env file
@@ -21,6 +22,12 @@ posts = db.posts
 comments = db.comments
 #user collection
 users = db.users
+#job items
+jobs = db.jobs
+
+app.config["SESSION_PERMANENT"] = True
+app.permanent_session_lifetime = timedelta(days=7)
+
 
 try:
     client.admin.command("ping")
@@ -32,7 +39,12 @@ def oid(s):
     try: return ObjectId(s)
     except: abort(404)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
+def home_redirect():
+    return redirect(url_for("official_home"))
+
+
+@app.route("/forum", methods=["GET", "POST"])
 def forum_home():
     all_posts = list(db.posts.find().sort("created_at", -1))
     for p in all_posts:
@@ -56,6 +68,73 @@ def my_posts():
     for p in my_posts:
         p["_id"] = str(p["_id"])
     return render_template("my_posts.html", posts=my_posts, section="forum")
+
+
+@app.route("/official")
+def official_home():
+    page = int(request.args.get("page", 1))
+    per_page = 20
+    skip = (page - 1) * per_page
+
+    jobs_cursor = db.jobs.find().skip(skip).limit(per_page)
+    jobs = list(jobs_cursor)
+    total_jobs = db.jobs.count_documents({})
+    has_next = total_jobs > page * per_page
+
+    # Get user's saved jobs
+    user_jobs = []
+    if "user_id" in session:
+        user = db.users.find_one({"_id": ObjectId(session["user_id"])})
+        if user and "my_jobs" in user:
+            user_jobs = [ObjectId(j) for j in user["my_jobs"]]
+
+    return render_template(
+        "official_home.html",
+        jobs=jobs,
+        page=page,
+        has_next=has_next,
+        user_jobs=user_jobs,
+        section="official"
+    )
+
+@app.route("/add_to_my_jobs/<job_id>", methods=["POST"])
+def add_to_my_jobs(job_id):
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user_id = ObjectId(session["user_id"])
+    db.users.update_one(
+        {"_id": user_id},
+        {"$addToSet": {"my_jobs": ObjectId(job_id)}}
+    )
+
+    flash("Job added to My Jobs.")
+    return redirect(url_for("official_home"))
+
+@app.route("/my_jobs")
+def my_jobs():
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user = db.users.find_one({"_id": ObjectId(session["user_id"])})
+    my_jobs = []
+    if user and "my_jobs" in user:
+        my_jobs = list(db.jobs.find({"_id": {"$in": [ObjectId(j) for j in user["my_jobs"]]}}))
+
+    return render_template("my_jobs.html", jobs=my_jobs, section="official")
+
+@app.route("/job/<job_id>")
+def view_job(job_id):
+    job = db.jobs.find_one({"_id": ObjectId(job_id)})
+    if not job:
+        flash("Job not found.")
+        return redirect(url_for("official_home"))
+
+    return render_template("job.html", job=job, section="official")
+
+
 #User
 ##register route
 @app.route("/register", methods=["GET", "POST"])
@@ -71,13 +150,18 @@ def register():
         if existing_user:
             flash("Username already exists. Please choose another.")
             return redirect(url_for("register"))
-        users.insert_one({"username": username, "password": password})
+        
+        new_user = {"username": username, "password": password}
+        result = users.insert_one(new_user)
         flash("Registration successful!")
         session["username"] = username
-
+        session["user_id"] = str(result.inserted_id)
         return redirect(url_for("profile"))
 
+
     return render_template("register.html")
+
+
 ##login route
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -87,6 +171,7 @@ def login():
         user = users.find_one({"username": username})
         if user and user["password"] == password:
             session["username"] = username
+            session["user_id"] = str(user["_id"])
             flash(f"Welcome, {username}!")
             return redirect(url_for("profile"))
         else:
@@ -96,12 +181,16 @@ def login():
 
     return render_template("login.html")
 
+
+
 ##logout route
 @app.route("/logout")
 def logout():
     session.clear()
     flash("You have logged out.")
     return redirect(url_for("login"))
+
+
 
 ##delete account route
 @app.route("/delete_account", methods=["POST"])
@@ -117,8 +206,9 @@ def delete_account():
     session.pop("username", None)
     return redirect(url_for("login"))
 
-#profile route
 
+
+#profile route
 @app.route("/profile")
 def profile():
     "change to login if not logged in"
@@ -128,10 +218,6 @@ def profile():
     username = session["username"]
     return render_template("profile.html", section="profile", username=username)
 
-
-@app.route("/official")
-def official_home():
-    return render_template("official_home.html", section="official")
 
 @app.route("/forum/publish", methods=["GET", "POST"])
 def publish_post():
@@ -168,6 +254,8 @@ def publish_post():
         flash("Post published successfully!")
         return redirect(url_for("forum_home"))
 
+
+
 @app.route("/post/<pid>", methods=["GET", "POST"])
 def post_detail(pid):
     """Post detail page:
@@ -191,6 +279,8 @@ def post_detail(pid):
     return render_template("post.html", doc=doc, comms=comms)
 
 
+
+
 @app.route("/post/<pid>/edit", methods=["GET", "POST"])
 def edit_post(pid):
     """Edit post page:
@@ -210,6 +300,8 @@ def edit_post(pid):
         flash("Post updated")
         return redirect(url_for("post_detail", pid=pid))
     return render_template("edit.html", doc=doc)
+
+
 
 
 @app.route("/post/<pid>/delete", methods=["POST"])

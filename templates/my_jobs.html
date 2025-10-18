@@ -1,0 +1,18 @@
+{% extends "base.html" %} {% block container %}
+<h2>My Saved Jobs</h2>
+
+{% if jobs %}
+<div class="job-list">
+  {% for job in jobs %}
+  <div class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p><strong>Company:</strong> {{ job.company }}</p>
+    <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
+    <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
+    <a href="{{ url_for('view_job', job_id=job._id|string) }}">View Details</a>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>You haven't added any jobs yet.</p>
+{% endif %} {% endblock %}
