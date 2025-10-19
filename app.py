@@ -83,7 +83,7 @@ def official_home():
     has_next = total_jobs > page * per_page
 
     # Get user's saved jobs
-    user_jobs = []
+    my_jobs = []
     if "user_id" in session:
         user = db.users.find_one({"_id": ObjectId(session["user_id"])})
         if user and "my_jobs" in user and user["my_jobs"]:
@@ -94,7 +94,7 @@ def official_home():
         jobs=jobs,
         page=page,
         has_next=has_next,
-        user_jobs=user_jobs,
+        user_jobs=my_jobs,
         section="official"
     )
 
