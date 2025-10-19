@@ -49,9 +49,6 @@ def forum_home():
     all_posts = list(db.posts.find().sort("created_at", -1))
     for p in all_posts:
         p["_id"] = str(p["_id"])
-        if "created_at" in p:
-            p["created_at"] = p["created_at"].astimezone(timezone.utc)
-
     return render_template("forum_home.html", posts=all_posts, section="forum")
 
 
@@ -89,7 +86,7 @@ def official_home():
     if "user_id" in session:
         user = db.users.find_one({"_id": ObjectId(session["user_id"])})
         if user and "my_jobs" in user and user["my_jobs"]:
-            user_jobs = list(db.jobs.find({"_id": {"$in": list(user["my_jobs"])}}))
+            my_jobs = list(db.jobs.find({"_id": {"$in": list(user["my_jobs"])}}))
 
     return render_template(
         "official_home.html",
@@ -310,7 +307,7 @@ def edit_post(pid):
                          {"$set":{"title":title,"message":msg,"updated_at":datetime.utcnow()}})
         flash("Post updated")
         return redirect(url_for("post_detail", pid=pid))
-    return render_template("edit.html", doc=doc)
+    return render_template("edit.html", doc=doc, section="forum")
 
 
 
