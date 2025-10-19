@@ -47,7 +47,7 @@
       
       <details class="reply-section">
         <summary>Add a reply</summary>
-        <form method="POST" action="{{ url_for('reply_to_comments', pid=pid, cid=cid) }}" class="inline-form">
+        <form method="POST" action="{{ url_for('reply_to_comments', pid=pid, cid=c._id) }}" class="inline-form">
           <input type="text" name="rmessage" placeholder="Write a reply…" required>
           <button type="submit">Send</button>
         </form>

@@ -275,14 +275,13 @@ def post_detail(pid):
     # attach the full replies to each comments in back-end
     for c in comms:
         c["replies_full"] = by_parent.get(c["_id"], [])
-        c["_id_str"] = str(c["_id"])
 
     return render_template(
         "post.html",
         doc=doc,
         comms=comms,      
         section="forum",
-        pid=str(_id)
+        pid=pid
     )
 
 @app.route("/post/<pid>/comment/add", methods=["GET", "POST"])
