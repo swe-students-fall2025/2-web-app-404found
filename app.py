@@ -6,7 +6,7 @@ from datetime import datetime, timezone
 from dotenv import load_dotenv
 from datetime import timedelta
 import os
-
+from collections import defaultdict
 # load .env file
 load_dotenv()
 
@@ -268,8 +268,21 @@ def post_detail(pid):
     comms = list(comments.find({"post_id": _id}).sort("created_at", -1))
     comment_ids = [c["_id"] for c in comms]
     reps = list(replies.find({"post_id": _id, "parent_comment_id": {"$in": comment_ids}}).sort("created_at", -1))
+    by_parent = defaultdict(list)
+    for r in reps:
+        by_parent[r["parent_comment_id"]].append(r)
 
-    return render_template("post.html", doc=doc, comms=comms, reps=reps, section="forum", pid = pid)
+    # attach the full replies to each comments in back-end
+    for c in comms:
+        c["replies_full"] = by_parent.get(c["_id"], [])
+
+    return render_template(
+        "post.html",
+        doc=doc,
+        comms=comms,      
+        section="forum",
+        pid=pid
+    )
 
 @app.route("/post/<pid>/comment/add", methods=["GET", "POST"])
 def add_comment(pid):
@@ -320,9 +333,13 @@ def edit_post(pid):
 def delete_post(pid):
     """Delete a post:
        - Triggered by 'Delete' button form submission"""
+    if "username" not in session:
+        flash("Please log in.", "warning")
+        return redirect(url_for("login"))
     _id = oid(pid)
     posts.delete_one({"_id": _id})
     comments.delete_many({"post_id": _id})
+    replies.delete_many({"post_id": _id})
     flash("Post deleted")
     return redirect(url_for("my_posts"))
 
@@ -355,7 +372,7 @@ def reply_to_comments(pid, cid):
     if not rmsg:
         flash("Reply cannot be empty.")
         return redirect(url_for("post_detail", pid=pid))
-    replies.insert_one({
+    rep = replies.insert_one({
         "post_id": _pid,
         "parent_comment_id": _cid,
         "user_id": user["_id"],
@@ -363,8 +380,13 @@ def reply_to_comments(pid, cid):
         "message": rmsg,
         "created_at": datetime.now(timezone.utc)
     })
+    rid = rep.inserted_id
+    comments.update_one(
+        {"_id": _cid},
+        {"$addToSet": {"replies": rid}}
+    )
     flash("Reply added!")
-    return redirect(url_for("post_detail", pid=pid))
+    return redirect(url_for("post_detail", pid=pid) +  f"#c-{cid}")
 
 
 if __name__ == "__main__":

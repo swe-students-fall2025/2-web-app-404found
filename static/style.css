@@ -354,3 +354,90 @@ header.wrap {
   box-shadow: 0 3px 10px rgba(75,108,183,0.35);
   transform: translateY(-2px);
 }
+
+/* === Comment & Reply layout (append) === */
+
+.list {
+  padding-left: 0.5rem;
+}
+
+.item {
+  display: block;
+  padding: 10px 0 12px;
+  border-bottom: 1px solid #eee;
+}
+
+.comment-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.comment-body p {
+  margin: 0.25rem 0 0.5rem;
+}
+
+.replies {
+  margin-top: 0.5rem;
+  margin-left: 1.25rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--line);
+}
+
+.reply {
+  margin: 0.25rem 0;
+}
+
+.reply-body p {
+  margin: 0.125rem 0 0.25rem;
+}
+
+details.reply-section {
+  margin-top: 0.5rem;
+}
+
+details.reply-section summary {
+  cursor: pointer;
+  color: #3b82f6;
+  font-weight: 500;
+  list-style: none;
+}
+
+details.reply-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.inline-form {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.inline-form textarea {
+  flex: 1;
+  min-width: 280px;
+  min-height: 60px;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  box-sizing: border-box;
+  resize: vertical;
+}
+
+.inline-form button {
+  width: auto;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.inline-form button:hover {
+  background: #2563eb;
+}
