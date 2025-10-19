@@ -16,7 +16,7 @@
 <h3>Comments</h3>
 <ul class="list">
   {% for c in comms %}
-    <li class="item">
+    <li class="item" id="c-{{ c._id }}">
       <div class="comment-header">
         <strong>{{ c.name }}</strong>
         <span class="meta">

@@ -382,7 +382,7 @@ def reply_to_comments(pid, cid):
         {"$addToSet": {"replies": rid}}
     )
     flash("Reply added!")
-    return redirect(url_for("post_detail", pid=pid))
+    return redirect(url_for("post_detail", pid=pid) +  f"#c-{cid}")
 
 
 if __name__ == "__main__":
