@@ -20,6 +20,7 @@ flask = "*"
 python-dotenv = "*"
 flask-login = "*"
 pymongo = "*"
+ngrok = "*"
 
 [dev-packages]
 
