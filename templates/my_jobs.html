@@ -9,7 +9,16 @@
     <p><strong>Company:</strong> {{ job.company }}</p>
     <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
     <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
-    <a href="{{ url_for('view_job', job_id=job._id|string) }}">View Details</a>
+    <div class="job-actions">
+      <a
+        href="{{ url_for('view_job', job_id=job['_id']) }}"
+        class="btn-action btn-view"
+        >View Details</a
+      >
+      <a href="{{ job['url'] }}" target="_blank" class="btn-action btn-apply"
+        >Apply</a
+      >
+    </div>
   </div>
   {% endfor %}
 </div>

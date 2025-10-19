@@ -1,26 +1,33 @@
-{% extends "base.html" %}
-{% block container %}
+{% extends "base.html" %} {% block container %}
 <h2>Write a Post</h2>
 <form method="POST" action="{{ url_for('publish_post') }}" class="card">
-  <input type="text"   name="ftitle"   placeholder="Job Title" required>
-  <textarea name="fmessage" placeholder="Job description / message" required></textarea>
+  <input type="text" name="ftitle" placeholder="Post Title" required />
+  <textarea
+    name="fmessage"
+    placeholder="Share your thoughts..."
+    required
+  ></textarea>
   <button type="submit">Publish</button>
 </form>
 
 <h2>Latest Posts</h2>
-<ul class="list">
+<div class="post-wrapper">
   {% for p in posts %}
-  <li class="item">
-    <div>
-      <a class="title" href="{{ url_for('post_detail', pid=p._id) }}">{{ p.title }}</a>
-      <div class="meta">by {{ p.name }}</div>
+  <div class="post-card">
+    <h3>
+      <a class="title" href="{{ url_for('post_detail', pid=p._id) }}"
+        >{{ p.title }}</a
+      >
+    </h3>
+    <p class="content">{{ p.message }}</p>
+    <div class="meta">
+      Posted by <strong>{{ p.name }}</strong>
+      on {{ p.created_at.strftime("%Y-%m-%d %H:%M") if p.created_at else
+      "Unknown" }}
     </div>
-    <div class="actions">
-      
-    </div>
-  </li>
+  </div>
   {% else %}
-  <li>No posts yet</li>
+  <p>No posts yet.</p>
   {% endfor %}
-</ul>
+</div>
 {% endblock %}

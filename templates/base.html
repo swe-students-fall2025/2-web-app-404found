@@ -20,24 +20,24 @@
   <body>
     <header class="wrap header-flex">
       <div class="nav-left">
-        <h1><a href="{{ url_for('official_home') }}">Job Hub</a></h1>
+        <h1>
+          <a style="text-decoration: none" href="{{ url_for('official_home') }}"
+            >Job Hub</a
+          >
+        </h1>
 
         {% set ep = request.endpoint %}
 
         <nav class="nav-top">
           <a
             href="{{ url_for('official_home') }}"
-            class="{{ 'is-active' if ep in [
-            'official_home','official_list'
-          ] else '' }}"
+            class="{{ 'is-active' if section == 'official' else '' }}"
           >
-            Official Posts
+            Find A Job!
           </a>
           <a
             href="{{ url_for('forum_home') }}"
-            class="{{ 'is-active' if ep in [
-            'forum_home','forum_list','post_detail','edit_post','delete_post', 'my_posts'
-          ] else '' }}"
+            class="{{ 'is-active' if section == 'forum' else '' }}"
           >
             Forum
           </a>
@@ -49,7 +49,7 @@
             href="{{ url_for('forum_home') }}"
             class="{{ 'is-active' if ep in ['forum_home','forum_list'] else '' }}"
           >
-            Main Board
+            Main Page
           </a>
 
           <a
@@ -65,11 +65,11 @@
             href="{{ url_for('official_home') }}"
             class="{{ 'is-active' if ep == 'official_home' else '' }}"
           >
-            Announcements
+            Job Posts
           </a>
           <a
             href="{{ url_for('my_jobs') }}"
-            class="{{ 'is-active' if ep == 'my_posts' else '' }}"
+            class="{{ 'is-active' if ep == 'my_jobs' else '' }}"
           >
             My Jobs
           </a>
