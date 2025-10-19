@@ -266,7 +266,10 @@ def post_detail(pid):
     _id = oid(pid)
     doc = posts.find_one({"_id": _id}) or abort(404)
     comms = list(comments.find({"post_id": _id}).sort("created_at", -1))
-    return render_template("post.html", doc=doc, comms=comms, section="forum", pid = _id)
+    comment_ids = [c["_id"] for c in comms]
+    reps = list(replies.find({"post_id": _id, "parent_comment_id": {"$in": comment_ids}}).sort("created_at", -1))
+
+    return render_template("post.html", doc=doc, comms=comms, reps=reps, section="forum", pid = pid)
 
 @app.route("/post/<pid>/comment/add", methods=["GET", "POST"])
 def add_comment(pid):
@@ -354,7 +357,7 @@ def reply_to_comments(pid, cid):
         return redirect(url_for("post_detail", pid=pid))
     replies.insert_one({
         "post_id": _pid,
-        "comment_id": _cid,
+        "parent_comment_id": _cid,
         "user_id": user["_id"],
         "name": user["username"],
         "message": rmsg,
