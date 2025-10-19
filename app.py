@@ -333,9 +333,13 @@ def edit_post(pid):
 def delete_post(pid):
     """Delete a post:
        - Triggered by 'Delete' button form submission"""
+    if "username" not in session:
+        flash("Please log in.", "warning")
+        return redirect(url_for("login"))
     _id = oid(pid)
     posts.delete_one({"_id": _id})
     comments.delete_many({"post_id": _id})
+    replies.delete_many({"post_id": _id})
     flash("Post deleted")
     return redirect(url_for("my_posts"))
 
