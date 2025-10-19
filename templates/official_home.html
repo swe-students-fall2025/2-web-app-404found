@@ -7,7 +7,11 @@
     <h3>{{ job.title }}</h3>
     <p><strong>Company:</strong> {{ job.company }}</p>
     <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
-    <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
+    <p>
+      <strong>Location:</strong>
+      {% if job.location %} {{ job.location[:2] | join(', ') }} {% else %} N/A
+      {% endif %}
+    </p>
 
     <div class="job-actions">
       <a
@@ -15,10 +19,7 @@
         class="btn-action btn-view"
         >View Details</a
       >
-      <a
-        href="{{ job['apply_link'] }}"
-        target="_blank"
-        class="btn-action btn-apply"
+      <a href="{{ job['url'] }}" target="_blank" class="btn-action btn-apply"
         >Apply</a
       >
     </div>
