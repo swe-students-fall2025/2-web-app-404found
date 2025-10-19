@@ -4,13 +4,13 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-Our vision is to build an interactive and inclusive Job Forum web application where students and professionals can discover job opportunities, share experiences, and connect through posts and comments
+Our vision is to build an interactive and inclusive Job Forum web application where students and professionals can discover job opportunities, share experiences, and connect through posts and comments.
 
 ## User stories
 
 ### As a visitor:
 - I want to browse available job listings so that I can learn about open opportunities.
-- I want to register or sign in easily so that I can set up my own account
+- I want to register or sign in easily so that I can set up my own account.
 
 ### As a user:
 - I want to search job posts by keyword, location, or company so that I can quickly find relevant openings.
@@ -29,10 +29,31 @@ Our vision is to build an interactive and inclusive Job Forum web application wh
 
 ## Steps necessary to run the software
 
-See instructions. Delete this line and place instructions to download, configure, and run the software here.
+## 1) Clone
+git clone https://github.com/swe-students-fall2025/2-web-app-404found.git <br> 
+cd 2-web-app-404found
+
+## 2) Env
+cp env.example .env <br>
+
+**Tip:** Edit .env with real values: MONGO_URI / NAME
+
+## 3) Deps
+python -m pip install --user pipenv **Windows:** py -m pip install --user pipenv <br>
+pipenv install <br>
+pipenv shell
+
+## 4) Run
+flask run
+
+### Notice
+- Click the link shown in terminal to open the site
+- When finished: Ctrl + C to stop, exit to leave the shell, and exit VPN if needed
+
 
 ## Task boards
 
 We use GitHub Projects to track progress during each sprint:
 
 - [404Found - Sprint 1](https://github.com/orgs/swe-students-fall2025/projects/42)
+- [404Found - Sprint 2](https://github.com/orgs/swe-students-fall2025/projects/53)
