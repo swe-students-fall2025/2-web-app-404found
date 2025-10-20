@@ -189,11 +189,12 @@ main.wrap {
 
 /* ====== CARD CONTAINER ====== */
 .card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #a4a4a4;
   border-radius: 10px;
   padding: 12px;
   margin: 12px 0;
-  background: #fff;
+  background:  rgba(255, 255, 255, 0.5);
+  opacity: 0.8;
   overflow: hidden;
 }
 
@@ -210,11 +211,11 @@ button {
   width: 100%;
   padding: 10px;
   margin: 6px 0;
-  border: 1px solid #d1d5db;
+  border: 1px solid #8e8e8e;
   border-radius: 8px;
   font: inherit;
   outline: none;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
@@ -257,7 +258,7 @@ button {
   padding: 6px 10px;
   border: 1px solid #d1d5db;
   border-radius: 8px;
-  background: #f9fafb;
+  background:  rgba(255, 255, 255, 0.55);
   text-decoration: none;
   color: #111;
   transition: background-color 0.2s ease;
@@ -301,7 +302,7 @@ button {
     box-shadow: 0 0 0 rgba(75,108,183,0.5);
   }
   50% {
-    box-shadow: 0 0 16px rgba(255,138,101,0.6);
+    box-shadow: 0 0 16px rgba(255,138,101,0.55);
   }
   100% {
     box-shadow: 0 0 0 rgba(75,108,183,0.5);
@@ -422,9 +423,9 @@ header.wrap {
 
 /* ====== JOB CARDS & SMOOTH ANIMATIONS ====== */
 .job-card {
-  border: 1px solid #e5e7eb;
+  border: 1px solid #a8a8a8;
   border-radius: 12px;
-  background: #fff;
+  background: rgba(255, 255, 255, 0.5);
   padding: 16px;
   margin: 14px 0;
   box-shadow: 0 2px 6px rgba(0,0,0,0.05);
@@ -455,7 +456,7 @@ header.wrap {
 }
 
 .post-card {
-  background: #ffffff;
+  background:  rgba(255, 255, 255, 0.5);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   padding: 16px 20px;
@@ -505,7 +506,7 @@ header.wrap {
 }
 
 .btn-view {
-  background: #ffffff;
+  background:  rgba(255, 255, 255, 0.55);
   border: 1px solid var(--brand-color);
   color: var(--brand-color);
 }
@@ -517,7 +518,7 @@ header.wrap {
 }
 
 .btn-apply {
-  background: #ffffff;
+  background:  rgba(255, 255, 255, 0.55);
   border: 1px solid var(--brand-color);
   color: var(--brand-color);
   font-weight: 500;
