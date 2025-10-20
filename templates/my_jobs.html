@@ -1,0 +1,40 @@
+{% extends "base.html" %} {% block container %}
+<h2>My Saved Jobs</h2>
+
+{% if jobs %}
+<div class="job-list">
+  {% for job in jobs %}
+  <div class="job-card">
+    <h3>{{ job.title }}</h3>
+    <p><strong>Company:</strong> {{ job.company }}</p>
+    <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
+    <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
+    <div class="job-actions">
+      <a
+        href="{{ url_for('view_job', job_id=job['_id']) }}"
+        class="btn-action btn-view"
+        >View Details</a
+      >
+      <a href="{{ job['url'] }}" target="_blank" class="btn-action btn-apply"
+        >Apply</a
+      >
+      <form
+        method="POST"
+        action="{{ url_for('remove_from_my_jobs', job_id=job['_id']) }}"
+        style="display: inline"
+      >
+        <button
+          type="submit"
+          class="btn danger"
+          onclick="return confirm('Remove this job from My Jobs?');"
+        >
+          Remove
+        </button>
+      </form>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% else %}
+<p>You haven't added any jobs yet.</p>
+{% endif %} {% endblock %}

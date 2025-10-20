@@ -1,5 +1,64 @@
-{% extends "base.html" %}
-{% block container %}
-<h2>Official Posts</h2>
-<p>This page will list company announcements and updates.</p>
+{% extends "base.html" %} {% block container %}
+<h2>Jobs from Big Tech!</h2>
+
+<form method="GET" action="{{ url_for('official_home') }}" class="search-bar">
+  <input
+    type="text"
+    name="q"
+    placeholder="Search jobs..."
+    value="{{ request.args.get('q', '') }}"
+  />
+  <button type="submit">Search</button>
+</form>
+
+<div class="job-list">
+  {% for job in jobs %}
+  <div class="job-card">
+    <h3>{{ job.title |safe}}</h3>
+    <p><strong>Company:</strong> {{ job.company |safe }}</p>
+    <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
+    <p>
+      <strong>Location:</strong>
+      {% if job.location %} {{ job.location[:2] | join(', ') }} {% else %} N/A
+      {% endif %}
+    </p>
+    {% if search %}
+    <p><strong>Employment Type:</strong> {{ job.employmentType | safe}}</p>
+    <p><strong>Description:</strong> {{ job.description|safe}}</p>
+    <p><strong>Qualifications:</strong> {{ job.qualifications|safe}}</p>
+    {% endif%}
+
+    <div class="job-actions">
+      <a
+        href="{{ url_for('view_job', job_id=job['_id']) }}"
+        class="btn-action btn-view"
+        >View Details</a
+      >
+      <a href="{{ job['url'] }}" target="_blank" class="btn-action btn-apply"
+        >Apply</a
+      >
+    </div>
+
+    {% if job['_id']|string in user_jobs %}
+    <button class="btn added" disabled>✓ Added</button>
+    {% else %}
+    <form
+      action="{{ url_for('add_to_my_jobs', job_id=job['_id']) }}"
+      method="post"
+    >
+      <button class="btn">Add to My Jobs</button>
+    </form>
+    {% endif %}
+  </div>
+  {% endfor %}
+</div>
+
+<!-- Pagination controls -->
+<div class="pagination">
+  {% if page > 1 %}
+  <a href="{{ url_for('official_home', page=page-1) }}">Previous</a>
+  {% endif %} {% if has_next %}
+  <a href="{{ url_for('official_home', page=page+1) }}">Next</a>
+  {% endif %}
+</div>
 {% endblock %}

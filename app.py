@@ -4,23 +4,31 @@ import certifi
 from bson import ObjectId
 from datetime import datetime, timezone
 from dotenv import load_dotenv
+from datetime import timedelta
 import os
-
+from collections import defaultdict
+import re
+from markupsafe import Markup
 # load .env file
 load_dotenv()
 
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
 
-app.config['SESSION_PERMANENT'] = False
-
 # connect to MongoDB
 client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=certifi.where())
 db = client[os.getenv("MONGO_DBNAME")]
 posts = db.posts
 comments = db.comments
+replies = db.replies
 #user collection
 users = db.users
+#job items
+jobs = db.jobs
+
+app.config["SESSION_PERMANENT"] = True
+app.permanent_session_lifetime = timedelta(days=7)
+
 
 try:
     client.admin.command("ping")
@@ -32,7 +40,12 @@ def oid(s):
     try: return ObjectId(s)
     except: abort(404)
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
+def home_redirect():
+    return redirect(url_for("official_home"))
+
+
+@app.route("/forum", methods=["GET", "POST"])
 def forum_home():
     all_posts = list(db.posts.find().sort("created_at", -1))
     for p in all_posts:
@@ -56,6 +69,125 @@ def my_posts():
     for p in my_posts:
         p["_id"] = str(p["_id"])
     return render_template("my_posts.html", posts=my_posts, section="forum")
+
+
+def highlight_text(text, keyword):
+    if not text or not keyword:
+        return text
+    
+    pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+    highlighted = pattern.sub(lambda m: f"<mark>{m.group(0)}</mark>", text)
+    return Markup(highlighted)
+
+
+@app.route("/official")
+def official_home():
+    q = request.args.get("q", "").strip()
+    page = int(request.args.get("page", 1))
+    per_page = 20
+    skip = (page - 1) * per_page
+    
+
+    if q:
+
+        seen = set()
+        results = []
+        fields = ["company", "title", "description", "location", "qualifications"]
+        for field in fields:
+            cursor = db.jobs.find({field: {"$regex": q, "$options": "i"}})
+            for job in cursor:
+                if job["_id"] not in seen:
+                    seen.add(job["_id"])
+                    results.append(job)
+        jobs_list = results
+        total_jobs = len(results)
+        has_next = False
+        
+        for job in jobs_list:
+            job["company"] = highlight_text(job.get("company", ""), q)
+            job["title"] = highlight_text(job.get("title", ""), q)
+            job["employmentType"] = highlight_text(job.get("temploymentType", ""), q)
+            job["description"] = highlight_text(job.get("description", ""), q)
+            job["qualifications"] = highlight_text(job.get("qualifications", ""), q)
+            
+    else:
+        total_jobs = db.jobs.count_documents({})
+        cursor = db.jobs.find().sort("datePosted", -1).skip(skip).limit(per_page)
+        jobs_list = list(cursor)
+        has_next = total_jobs > page * per_page
+    
+    user_jobs = []
+    if "user_id" in session:
+        user = db.users.find_one({"_id": ObjectId(session["user_id"])})
+        if user and "my_jobs" in user:
+            user_jobs = [str(j) for j in user["my_jobs"]]
+
+    return render_template(
+        "official_home.html",
+        jobs=jobs_list,
+        user_jobs = user_jobs,
+        page=page,
+        has_next=has_next,
+        q=q,
+        section="official",
+        search = q
+    )
+
+
+@app.route("/add_to_my_jobs/<job_id>", methods=["POST"])
+def add_to_my_jobs(job_id):
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user_id = ObjectId(session["user_id"])
+    db.users.update_one(
+        {"_id": user_id},
+        {"$addToSet": {"my_jobs": ObjectId(job_id)}}
+    )
+
+    flash("Job added to My Jobs.")
+    return redirect(url_for("official_home"))
+
+@app.route("/remove_from_my_jobs/<job_id>", methods=["POST"])
+def remove_from_my_jobs(job_id):
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user_id = ObjectId(session["user_id"])
+    db.users.update_one(
+        {"_id": user_id},
+        {"$pull": {"my_jobs": ObjectId(job_id)}}  # $pull removes from array
+    )
+
+    flash("Job removed from My Jobs.")
+    return redirect(url_for("my_jobs"))
+
+
+@app.route("/my_jobs")
+def my_jobs():
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user = db.users.find_one({"_id": ObjectId(session["user_id"])})
+    my_jobs = []
+    if user and "my_jobs" in user:
+        my_jobs = list(db.jobs.find({"_id": {"$in": [ObjectId(j) for j in user["my_jobs"]]}}).sort("datePosted", -1))
+
+    return render_template("my_jobs.html", jobs=my_jobs, section="official")
+
+@app.route("/job/<job_id>")
+def view_job(job_id):
+    job = db.jobs.find_one({"_id": ObjectId(job_id)})
+    if not job:
+        flash("Job not found.")
+        return redirect(url_for("official_home"))
+
+    return render_template("job.html", job=job, section="official")
+
+
 #User
 ##register route
 @app.route("/register", methods=["GET", "POST"])
@@ -71,13 +203,18 @@ def register():
         if existing_user:
             flash("Username already exists. Please choose another.")
             return redirect(url_for("register"))
-        users.insert_one({"username": username, "password": password})
+        
+        new_user = {"username": username, "password": password}
+        result = users.insert_one(new_user)
         flash("Registration successful!")
         session["username"] = username
-
+        session["user_id"] = str(result.inserted_id)
         return redirect(url_for("profile"))
 
+
     return render_template("register.html")
+
+
 ##login route
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -87,6 +224,7 @@ def login():
         user = users.find_one({"username": username})
         if user and user["password"] == password:
             session["username"] = username
+            session["user_id"] = str(user["_id"])
             flash(f"Welcome, {username}!")
             return redirect(url_for("profile"))
         else:
@@ -96,12 +234,16 @@ def login():
 
     return render_template("login.html")
 
+
+
 ##logout route
 @app.route("/logout")
 def logout():
     session.clear()
     flash("You have logged out.")
     return redirect(url_for("login"))
+
+
 
 ##delete account route
 @app.route("/delete_account", methods=["POST"])
@@ -117,8 +259,9 @@ def delete_account():
     session.pop("username", None)
     return redirect(url_for("login"))
 
-#profile route
 
+
+#profile route
 @app.route("/profile")
 def profile():
     "change to login if not logged in"
@@ -128,12 +271,7 @@ def profile():
     username = session["username"]
     return render_template("profile.html", section="profile", username=username)
 
-
-@app.route("/official")
-def official_home():
-    return render_template("official_home.html", section="official")
-
-@app.route("/forum/publish", methods=["GET", "POST"])
+@app.route("/post/publish", methods=["GET", "POST"])
 def publish_post():
     """Main page:
        - GET: display all posts
@@ -168,27 +306,52 @@ def publish_post():
         flash("Post published successfully!")
         return redirect(url_for("forum_home"))
 
+
+
 @app.route("/post/<pid>", methods=["GET", "POST"])
 def post_detail(pid):
-    """Post detail page:
-       - GET: display one post and its comments
-       - POST: handle new comment submission"""
     _id = oid(pid)
     doc = posts.find_one({"_id": _id}) or abort(404)
+    comms = list(comments.find({"post_id": _id}).sort("created_at", -1))
+    comment_ids = [c["_id"] for c in comms]
+    reps = list(replies.find({"post_id": _id, "parent_comment_id": {"$in": comment_ids}}).sort("created_at", -1))
+    by_parent = defaultdict(list)
+    for r in reps:
+        by_parent[r["parent_comment_id"]].append(r)
+
+    # attach the full replies to each comments in back-end
+    for c in comms:
+        c["replies_full"] = by_parent.get(c["_id"], [])
+
+    return render_template(
+        "post.html",
+        doc=doc,
+        comms=comms,      
+        section="forum",
+        pid=pid
+    )
+
+@app.route("/post/<pid>/comment/add", methods=["GET", "POST"])
+def add_comment(pid):
+    _id = oid(pid)
+    doc = posts.find_one({"_id": _id}) or abort(404)
+
     if request.method == "POST":
-        cname = request.form.get("cname","").strip()
-        cmsg  = request.form.get("cmessage","").strip()
-        if not (cname and cmsg):
-            flash("Comment requires Name and Message")
-            return redirect(url_for("post_detail", pid=pid))
+        if "username" not in session:
+            flash("Please log in before commenting.")
+            return redirect(url_for("login"))
+        user = db.users.find_one({"username": session["username"]})
+        cmsg = request.form.get("cmessage", "").strip()
         comments.insert_one({
-            "post_id": _id, "name": cname, "message": cmsg,
+            "post_id": _id,
+            "user_id": user["_id"],
+            "name": user["username"],
+            "message": cmsg,
             "created_at": datetime.now(timezone.utc)
         })
-        flash("Comment added")
-        return redirect(url_for("post_detail", pid=pid))
-    comms = list(comments.find({"post_id": _id}).sort("created_at",-1))
-    return render_template("post.html", doc=doc, comms=comms)
+        flash("Comment added!")
+    return redirect(url_for("post_detail", pid=pid))
+
 
 
 @app.route("/post/<pid>/edit", methods=["GET", "POST"])
@@ -199,29 +362,78 @@ def edit_post(pid):
     _id = oid(pid)
     doc = posts.find_one({"_id": _id}) or abort(404)
     if request.method == "POST":
-        name = request.form.get("fname","").strip()
         title = request.form.get("ftitle","").strip()
         msg  = request.form.get("fmessage","").strip()
-        if not (name and title and msg):
+        if not (title and msg):
             flash("Name / Title / Message cannot be empty")
             return redirect(url_for("edit_post", pid=pid))
         posts.update_one({"_id": _id},
-                         {"$set":{"name":name,"title":title,"message":msg,"updated_at":datetime.utcnow()}})
+                         {"$set":{"title":title,"message":msg,"updated_at":datetime.utcnow()}})
         flash("Post updated")
         return redirect(url_for("post_detail", pid=pid))
-    return render_template("edit.html", doc=doc)
+    return render_template("edit.html", doc=doc, section="forum")
+
+
 
 
 @app.route("/post/<pid>/delete", methods=["POST"])
 def delete_post(pid):
     """Delete a post:
        - Triggered by 'Delete' button form submission"""
+    if "username" not in session:
+        flash("Please log in.", "warning")
+        return redirect(url_for("login"))
     _id = oid(pid)
     posts.delete_one({"_id": _id})
     comments.delete_many({"post_id": _id})
+    replies.delete_many({"post_id": _id})
     flash("Post deleted")
     return redirect(url_for("my_posts"))
 
+# @app.route("/post/<pid>/comment/<cid>/delete", methods=["POST"])
+# def delete_comment(pid, cid):
+#     """Delete a comment:
+#         - shoudl have a delete button on each comment
+#         - should have a new delete button next to each comment"""
+#     _id = oid(cid)
+#     comments.delete_one({"_id": _id})
+#     flash("Comment deleted")
+#     return redirect(url_for("post_detail", pid=pid))
+
+@app.route("/post/<pid>/comment/<cid>/reply", methods=["POST"])
+def reply_to_comments(pid, cid):
+    _pid = oid(pid)
+    _cid = oid(cid)
+    # need to login before replying
+    if "username" not in session:
+        flash("Please log in before replying.")
+        return redirect(url_for("login"))
+     
+    post_doc = posts.find_one({"_id": _pid})
+    parent = comments.find_one({"_id": _cid, "post_id": _pid})
+    if not post_doc or not parent:
+        abort(404)
+
+    user = users.find_one({"username": session["username"]})
+    rmsg = request.form.get("rmessage", "").strip()
+    if not rmsg:
+        flash("Reply cannot be empty.")
+        return redirect(url_for("post_detail", pid=pid))
+    rep = replies.insert_one({
+        "post_id": _pid,
+        "parent_comment_id": _cid,
+        "user_id": user["_id"],
+        "name": user["username"],
+        "message": rmsg,
+        "created_at": datetime.now(timezone.utc)
+    })
+    rid = rep.inserted_id
+    comments.update_one(
+        {"_id": _cid},
+        {"$addToSet": {"replies": rid}}
+    )
+    flash("Reply added!")
+    return redirect(url_for("post_detail", pid=pid) +  f"#c-{cid}")
 
 
 if __name__ == "__main__":

@@ -2,7 +2,6 @@
 {% block container %}
 <h2>Edit Post</h2>
 <form method="POST" class="card">
-  <input type="text"   name="fname"   value="{{ doc.name }}"  placeholder="Your name" required>
   <input type="text"   name="ftitle"  value="{{ doc.title }}" placeholder="Job title" required>
   <textarea name="fmessage" placeholder="Job description / message" required>{{ doc.message }}</textarea>
   <button type="submit">Save</button>

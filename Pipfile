@@ -17,9 +17,14 @@ dnspython = "*"
 certifi = "*"
 gunicorn = "*"
 flask = "*"
-pymongo = "*"
 python-dotenv = "*"
 flask-login = "*"
+pymongo = "*"
+<<<<<<< HEAD
+ngrok = "*"
+=======
+colorama = "*"
+>>>>>>> 8759005e571067228933f751c52b3ce88f8954f5
 
 [dev-packages]
 

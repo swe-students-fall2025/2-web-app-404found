@@ -4,13 +4,13 @@ A little exercise to build a web application following an agile development proc
 
 ## Product vision statement
 
-Our vision is to build an interactive and inclusive Job Forum web application where students and professionals can discover job opportunities, share experiences, and connect through posts and comments
+Our vision is to build an interactive and inclusive Job Forum web application where students and professionals can discover job opportunities, share experiences, and connect through posts and comments.
 
 ## User stories
 
 ### As a visitor:
 - I want to browse available job listings so that I can learn about open opportunities.
-- I want to register or sign in easily so that I can set up my own account
+- I want to register or sign in easily so that I can set up my own account.
 
 ### As a user:
 - I want to search job posts by keyword, location, or company so that I can quickly find relevant openings.
@@ -27,12 +27,52 @@ Our vision is to build an interactive and inclusive Job Forum web application wh
 - I want to review and remove inappropriate content so that the community stays professional and safe.
 - I want to suspend or reinstate user accounts so that the community stays safe.
 
-## Steps necessary to run the software
+## Installation and Setup Guide
 
-See instructions. Delete this line and place instructions to download, configure, and run the software here.
+### 1. Clone Repository
+```bash
+git clone https://github.com/swe-students-fall2025/2-web-app-404found.git
+cd 2-web-app-404found
+```
 
-## Task boards
+### 2. Environment Setup
+```bash
+cp env.example .env
+```
+**Important:** Edit `.env` file with your actual values:
+- `MONGO_URI`: Your MongoDB connection string
+- `NAME`: Your database name
+
+### 3. Dependencies Installation
+For Linux/macOS:
+```bash
+python -m pip install --user pipenv
+pipenv install
+pipenv shell
+```
+
+For Windows:
+```bash
+py -m pip install --user pipenv
+pipenv install
+pipenv shell
+```
+
+### 4. Run Application
+```bash
+flask run
+```
+
+### Usage Notes
+- Open the link displayed in the terminal to access the website
+- To stop the application:
+  1. Press `Ctrl + C` to stop the server
+  2. Type `exit` to leave the virtual environment
+  3. Disconnect from VPN if you were using it
+
+## Task Boards
 
 We use GitHub Projects to track progress during each sprint:
 
 - [404Found - Sprint 1](https://github.com/orgs/swe-students-fall2025/projects/42)
+- [404Found - Sprint 2](https://github.com/orgs/swe-students-fall2025/projects/53)
