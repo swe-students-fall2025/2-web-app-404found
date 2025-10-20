@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block container %}
-<a href="{{ url_for(next_page or 'official_home') }}" class="btn-back"
+<a
+  href="{{ url_for(next_page) if next_page in ['official_home', 'my_jobs'] else next_page }}"
+  class="btn-back"
   >← Back</a
 >
 

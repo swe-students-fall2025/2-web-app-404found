@@ -78,22 +78,34 @@
   {% endif %}
 </div>
 <script>
-  // Save scroll position before navigating away
-  window.addEventListener("beforeunload", () => {
-    localStorage.setItem("scrollPosition", window.scrollY);
+  if ("scrollRestoration" in history) {
+    history.scrollRestoration = "manual";
+  }
+
+  // Restore scroll position only when coming BACK from a job detail
+  const HEADER_OFFSET = 90; // adjust this to your header height (in px)
+
+  const storedScroll = localStorage.getItem("scrollPosition");
+  if (storedScroll) {
+    const target = Math.max(parseInt(storedScroll) - HEADER_OFFSET, 0);
+    window.scrollTo({ top: target, behavior: "smooth" });
+    localStorage.removeItem("scrollPosition");
+  }
+
+  // Save scroll position only when clicking "View Details"
+  document.querySelectorAll(".btn-view").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      localStorage.setItem("scrollPosition", window.scrollY);
+    });
   });
 
-  // Restore it when coming back
-  window.addEventListener("load", () => {
-    const scrollPos = localStorage.getItem("scrollPosition");
-    if (scrollPos) {
-      window.scrollTo({
-        top: parseInt(scrollPos),
-        behavior: "smooth",
-      });
-
+  // For pagination: always scroll to top when clicking next/prev
+  document.querySelectorAll(".pagination a").forEach((link) => {
+    link.addEventListener("click", () => {
+      // clear any stored scroll so back won't trigger restore
       localStorage.removeItem("scrollPosition");
-    }
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
   });
 </script>
 

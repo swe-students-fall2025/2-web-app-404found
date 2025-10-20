@@ -185,6 +185,8 @@ def my_jobs():
 
     return render_template("my_jobs.html", jobs=my_jobs, section="official")
 
+from urllib.parse import unquote
+
 @app.route("/job/<job_id>")
 def view_job(job_id):
     job = db.jobs.find_one({"_id": ObjectId(job_id)})
@@ -192,10 +194,9 @@ def view_job(job_id):
         flash("Job not found.")
         return redirect(url_for("official_home"))
 
-    # Remember where user came from
-    next_page = request.args.get("next", "official_home")
+    next_page = unquote(request.args.get("next", "official_home"))
 
-    # Check if the user already saved this job
+    # 检查用户是否已保存
     is_saved = False
     if "user_id" in session:
         user = db.users.find_one({"_id": ObjectId(session["user_id"])})
@@ -206,9 +207,9 @@ def view_job(job_id):
         "job.html",
         job=job,
         is_saved=is_saved,
-        section="official",
-        next_page=next_page  # pass to template
+        next_page=next_page
     )
+
 
 
 #User
