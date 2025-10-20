@@ -23,7 +23,9 @@
       {% endif %}
     </p>
     {% if search %}
-    <p>{{job.description|safe}}</p>
+    <p><strong>Employment Type:</strong> {{ job.employmentType | safe}}</p>
+    <p><strong>Description:</strong> {{ job.description|safe}}</p>
+    <p><strong>Qualifications:</strong> {{ job.qualifications|safe}}</p>
     {% endif%}
 
     <div class="job-actions">
