@@ -456,3 +456,14 @@ mark {
   50% { background-color: #fde68a; }
   100% { background-color: #fef3c7; }
 }
+
+.btn.danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-color: #ef4444;
+}
+
+.btn.danger:hover {
+  background-color: #fca5a5;
+  color: white;
+}

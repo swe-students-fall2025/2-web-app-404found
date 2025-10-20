@@ -143,6 +143,22 @@ def add_to_my_jobs(job_id):
     flash("Job added to My Jobs.")
     return redirect(url_for("official_home"))
 
+@app.route("/remove_from_my_jobs/<job_id>", methods=["POST"])
+def remove_from_my_jobs(job_id):
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user_id = ObjectId(session["user_id"])
+    db.users.update_one(
+        {"_id": user_id},
+        {"$pull": {"my_jobs": ObjectId(job_id)}}  # $pull removes from array
+    )
+
+    flash("Job removed from My Jobs.")
+    return redirect(url_for("my_jobs"))
+
+
 @app.route("/my_jobs")
 def my_jobs():
     if "user_id" not in session:
