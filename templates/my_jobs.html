@@ -13,8 +13,7 @@
     <p><strong>Location:</strong> {{ job.location[:2]|join(', ') }}</p>
     <div class="job-actions">
       <a
-        href="{{ url_for('view_job', job_id=job['_id'], next='my_jobs') }}"
-        class="btn-action btn-view"
+        href="{{ url_for('view_job', job_id=job['_id'], next=request.full_path) }}"
       >
         View Details
       </a>

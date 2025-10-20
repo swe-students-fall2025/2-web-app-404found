@@ -77,4 +77,24 @@
   </div>
   {% endif %}
 </div>
+<script>
+  // Save scroll position before navigating away
+  window.addEventListener("beforeunload", () => {
+    localStorage.setItem("scrollPosition", window.scrollY);
+  });
+
+  // Restore it when coming back
+  window.addEventListener("load", () => {
+    const scrollPos = localStorage.getItem("scrollPosition");
+    if (scrollPos) {
+      window.scrollTo({
+        top: parseInt(scrollPos),
+        behavior: "smooth",
+      });
+
+      localStorage.removeItem("scrollPosition");
+    }
+  });
+</script>
+
 {% endblock %}
