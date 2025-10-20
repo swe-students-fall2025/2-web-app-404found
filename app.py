@@ -7,6 +7,8 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import os
 from collections import defaultdict
+import re
+from markupsafe import Markup
 # load .env file
 load_dotenv()
 
@@ -71,32 +73,60 @@ def my_posts():
     return render_template("my_posts.html", posts=my_posts, section="forum")
 
 
+def highlight_text(text, keyword):
+    if not text or not keyword:
+        return text
+    
+    pattern = re.compile(re.escape(keyword), re.IGNORECASE)
+    highlighted = pattern.sub(lambda m: f"<mark>{m.group(0)}</mark>", text)
+    return Markup(highlighted)
+
+
 @app.route("/official")
 def official_home():
+    q = request.args.get("q", "").strip()
     page = int(request.args.get("page", 1))
     per_page = 20
     skip = (page - 1) * per_page
+    
+    in_search = (q != None)
 
-    jobs_cursor = db.jobs.find().sort("datePosted", -1).skip(skip).limit(per_page)
-    jobs = list(jobs_cursor)
-    total_jobs = db.jobs.count_documents({})
-    has_next = total_jobs > page * per_page
+    if q:
 
-    # Get user's saved jobs
-    my_jobs = []
-    if "user_id" in session:
-        user = db.users.find_one({"_id": ObjectId(session["user_id"])})
-        if user and "my_jobs" in user and user["my_jobs"]:
-            my_jobs = list(db.jobs.find({"_id": {"$in": list(user["my_jobs"])}}))
+        seen = set()
+        results = []
+        fields = ["company", "title", "description", "location", "qualifications"]
+        for field in fields:
+            cursor = db.jobs.find({field: {"$regex": q, "$options": "i"}})
+            for job in cursor:
+                if job["_id"] not in seen:
+                    seen.add(job["_id"])
+                    results.append(job)
+        jobs_list = results
+        total_jobs = len(results)
+        has_next = False
+        
+        for job in jobs_list:
+            job["company"] = highlight_text(job.get("company", ""), q)
+            job["title"] = highlight_text(job.get("title", ""), q)
+            job["description"] = highlight_text(job.get("description", ""), q)
+            
+    else:
+        total_jobs = db.jobs.count_documents({})
+        cursor = db.jobs.find().sort("datePosted", -1).skip(skip).limit(per_page)
+        jobs_list = list(cursor)
+        has_next = total_jobs > page * per_page
 
     return render_template(
         "official_home.html",
-        jobs=jobs,
+        jobs=jobs_list,
         page=page,
         has_next=has_next,
-        user_jobs=my_jobs,
-        section="official"
+        q=q,
+        section="official",
+        search = q
     )
+
 
 @app.route("/add_to_my_jobs/<job_id>", methods=["POST"])
 def add_to_my_jobs(job_id):
@@ -112,6 +142,22 @@ def add_to_my_jobs(job_id):
 
     flash("Job added to My Jobs.")
     return redirect(url_for("official_home"))
+
+@app.route("/remove_from_my_jobs/<job_id>", methods=["POST"])
+def remove_from_my_jobs(job_id):
+    if "user_id" not in session:
+        flash("Please log in first.")
+        return redirect(url_for("login"))
+
+    user_id = ObjectId(session["user_id"])
+    db.users.update_one(
+        {"_id": user_id},
+        {"$pull": {"my_jobs": ObjectId(job_id)}}  # $pull removes from array
+    )
+
+    flash("Job removed from My Jobs.")
+    return redirect(url_for("my_jobs"))
+
 
 @app.route("/my_jobs")
 def my_jobs():

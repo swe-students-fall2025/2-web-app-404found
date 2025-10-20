@@ -441,3 +441,29 @@ details.reply-section summary::-webkit-details-marker {
 .inline-form button:hover {
   background: #2563eb;
 }
+
+
+mark {
+  background: linear-gradient(90deg, #fde68a, #facc15);
+  color: #111;
+  padding: 0 2px;
+  border-radius: 3px;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { background-color: #fef3c7; }
+  50% { background-color: #fde68a; }
+  100% { background-color: #fef3c7; }
+}
+
+.btn.danger {
+  background-color: #fee2e2;
+  color: #b91c1c;
+  border-color: #ef4444;
+}
+
+.btn.danger:hover {
+  background-color: #fca5a5;
+  color: white;
+}

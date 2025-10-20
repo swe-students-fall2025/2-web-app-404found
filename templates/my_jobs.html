@@ -18,6 +18,19 @@
       <a href="{{ job['url'] }}" target="_blank" class="btn-action btn-apply"
         >Apply</a
       >
+      <form
+        method="POST"
+        action="{{ url_for('remove_from_my_jobs', job_id=job['_id']) }}"
+        style="display: inline"
+      >
+        <button
+          type="submit"
+          class="btn danger"
+          onclick="return confirm('Remove this job from My Jobs?');"
+        >
+          Remove
+        </button>
+      </form>
     </div>
   </div>
   {% endfor %}
