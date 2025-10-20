@@ -710,3 +710,20 @@ mark {
 .no-box * {
   /* text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); */
 }
+
+.btn-back {
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 15px;
+  padding: 6px 14px;
+  background: #f5f7ff;
+  border: 1px solid #dbe0f0;
+  border-radius: 6px;
+  color: #4b6cb7;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+}
+.btn-back:hover {
+  background: #e6ecff;
+  border-color: #c8d1f0;
+}

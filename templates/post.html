@@ -1,4 +1,6 @@
 {% extends "base.html" %} {% block container %}
+<a href="{{ url_for('forum_home') }}" class="btn-back">← Back to Forum</a>
+
 <h2>{{ doc.title }}</h2>
 <div class="no-box">
   <p class="meta">by {{ doc.name }}</p>

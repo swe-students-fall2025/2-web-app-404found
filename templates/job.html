@@ -1,4 +1,8 @@
 {% extends "base.html" %} {% block container %}
+<a href="{{ url_for(next_page or 'official_home') }}" class="btn-back"
+  >← Back</a
+>
+
 <div class="no-box">
   <h2>{{ job.title }}</h2>
   <p><strong>Company:</strong> {{ job.company }}</p>

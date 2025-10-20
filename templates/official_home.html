@@ -32,10 +32,12 @@
 
     <div class="job-actions">
       <a
-        href="{{ url_for('view_job', job_id=job['_id']) }}"
+        href="{{ url_for('view_job', job_id=job['_id'], next='official_home') }}"
         class="btn-action btn-view"
-        >View Details</a
       >
+        View Details
+      </a>
+
       <a href="{{ job['url'] }}" target="_blank" class="btn-action btn-apply"
         >Apply</a
       >

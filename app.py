@@ -192,7 +192,23 @@ def view_job(job_id):
         flash("Job not found.")
         return redirect(url_for("official_home"))
 
-    return render_template("job.html", job=job, section="official")
+    # Remember where user came from
+    next_page = request.args.get("next", "official_home")
+
+    # Check if the user already saved this job
+    is_saved = False
+    if "user_id" in session:
+        user = db.users.find_one({"_id": ObjectId(session["user_id"])})
+        if user and "my_jobs" in user and ObjectId(job_id) in user["my_jobs"]:
+            is_saved = True
+
+    return render_template(
+        "job.html",
+        job=job,
+        is_saved=is_saved,
+        section="official",
+        next_page=next_page  # pass to template
+    )
 
 
 #User
