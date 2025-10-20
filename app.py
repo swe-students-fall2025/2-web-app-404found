@@ -15,8 +15,6 @@ load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "dev-secret")
 
-# app.config['SESSION_PERMANENT'] = False
-
 # connect to MongoDB
 client = MongoClient(os.getenv("MONGO_URI"), tlsCAFile=certifi.where())
 db = client[os.getenv("MONGO_DBNAME")]
@@ -266,11 +264,6 @@ def profile():
         return redirect(url_for("login"))
     username = session["username"]
     return render_template("profile.html", section="profile", username=username)
-
-
-# @app.route("/official")
-# def official_home():
-#     return render_template("official_home.html", section="official")
 
 @app.route("/post/publish", methods=["GET", "POST"])
 def publish_post():
