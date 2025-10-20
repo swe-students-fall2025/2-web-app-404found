@@ -1,17 +1,32 @@
 {% extends "base.html" %} {% block container %}
-<h2>Official Job Posts</h2>
+<h2>Jobs from Big Tech!</h2>
+
+<form method="GET" action="{{ url_for('official_home') }}" class="search-bar">
+  <input
+    type="text"
+    name="q"
+    placeholder="Search jobs..."
+    value="{{ request.args.get('q', '') }}"
+  />
+  <button type="submit">Search</button>
+</form>
 
 <div class="job-list">
   {% for job in jobs %}
   <div class="job-card">
-    <h3>{{ job.title }}</h3>
-    <p><strong>Company:</strong> {{ job.company }}</p>
+    <h3>{{ job.title |safe}}</h3>
+    <p><strong>Company:</strong> {{ job.company |safe }}</p>
     <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
     <p>
       <strong>Location:</strong>
       {% if job.location %} {{ job.location[:2] | join(', ') }} {% else %} N/A
       {% endif %}
     </p>
+    {% if search %}
+    <p><strong>Employment Type:</strong> {{ job.employmentType | safe}}</p>
+    <p><strong>Description:</strong> {{ job.description|safe}}</p>
+    <p><strong>Qualifications:</strong> {{ job.qualifications|safe}}</p>
+    {% endif%}
 
     <div class="job-actions">
       <a
@@ -24,7 +39,7 @@
       >
     </div>
 
-    {% if job in user_jobs %}
+    {% if job['_id']|string in user_jobs %}
     <button class="btn added" disabled>✓ Added</button>
     {% else %}
     <form
