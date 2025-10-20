@@ -27,31 +27,50 @@ Our vision is to build an interactive and inclusive Job Forum web application wh
 - I want to review and remove inappropriate content so that the community stays professional and safe.
 - I want to suspend or reinstate user accounts so that the community stays safe.
 
-## Steps necessary to run the software
+## Installation and Setup Guide
 
-## 1) Clone
-git clone https://github.com/swe-students-fall2025/2-web-app-404found.git <br> 
+### 1. Clone Repository
+```bash
+git clone https://github.com/swe-students-fall2025/2-web-app-404found.git
 cd 2-web-app-404found
+```
 
-## 2) Env
-cp env.example .env <br>
+### 2. Environment Setup
+```bash
+cp env.example .env
+```
+**Important:** Edit `.env` file with your actual values:
+- `MONGO_URI`: Your MongoDB connection string
+- `NAME`: Your database name
 
-**Tip:** Edit .env with real values: MONGO_URI / NAME
-
-## 3) Deps
-python -m pip install --user pipenv **Windows:** py -m pip install --user pipenv <br>
-pipenv install <br>
+### 3. Dependencies Installation
+For Linux/macOS:
+```bash
+python -m pip install --user pipenv
+pipenv install
 pipenv shell
+```
 
-## 4) Run
+For Windows:
+```bash
+py -m pip install --user pipenv
+pipenv install
+pipenv shell
+```
+
+### 4. Run Application
+```bash
 flask run
+```
 
-### Notice
-- Click the link shown in terminal to open the site
-- When finished: Ctrl + C to stop, exit to leave the shell, and exit VPN if needed
+### Usage Notes
+- Open the link displayed in the terminal to access the website
+- To stop the application:
+  1. Press `Ctrl + C` to stop the server
+  2. Type `exit` to leave the virtual environment
+  3. Disconnect from VPN if you were using it
 
-
-## Task boards
+## Task Boards
 
 We use GitHub Projects to track progress during each sprint:
 
