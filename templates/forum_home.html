@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block container %}
-<h2>Write a Post</h2>
+<div class="h2-container">
+  <h2>Write a Post</h2>
+</div>
 <form method="POST" action="{{ url_for('publish_post') }}" class="card">
   <input type="text" name="ftitle" placeholder="Post Title" required />
   <textarea

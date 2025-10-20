@@ -1,5 +1,7 @@
 {% extends "base.html" %} {% block container %}
-<h2>Jobs from Big Tech!</h2>
+<div class="h2-container">
+  <h2>Latest Jobs at Firepit</h2>
+</div>
 
 <form method="GET" action="{{ url_for('official_home') }}" class="search-bar">
   <input
@@ -39,7 +41,7 @@
       >
     </div>
 
-    {% if job in user_jobs %}
+    {% if job['_id'] in user_jobs %}
     <button class="btn added" disabled>✓ Added</button>
     {% else %}
     <form
@@ -56,9 +58,21 @@
 <!-- Pagination controls -->
 <div class="pagination">
   {% if page > 1 %}
-  <a href="{{ url_for('official_home', page=page-1) }}">Previous</a>
+  <div class="no-box">
+    <a
+      style="float: left; text-decoration: none"
+      href="{{ url_for('official_home', page=page-1) }}"
+      >Previous</a
+    >
+  </div>
   {% endif %} {% if has_next %}
-  <a href="{{ url_for('official_home', page=page+1) }}">Next</a>
+  <div class="no-box">
+    <a
+      style="float: right; text-decoration: none"
+      href="{{ url_for('official_home', page=page+1) }}"
+      >Next</a
+    >
+  </div>
   {% endif %}
 </div>
 {% endblock %}

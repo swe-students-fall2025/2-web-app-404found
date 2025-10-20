@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+  {% set ep = request.endpoint %}
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{ title or "The Firepit Job Hub" }}</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Henny+Penny&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Trade+Winds&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
     <link
@@ -18,75 +18,67 @@
   </head>
 
   <body>
-    <header class="wrap header-flex">
-      <div class="nav-left">
-        <h1>
-          <a style="text-decoration: none" href="{{ url_for('official_home') }}"
-            >The Firepit Job Hub</a
-          >
-        </h1>
+    <!-- 🔝 Fixed Top Navigation -->
+    <header class="site-header">
+      <div class="nav-container">
+        <a href="{{ url_for('official_home') }}" class="logo">Firepit 404</a>
 
-        {% set ep = request.endpoint %}
-
-        <nav class="nav-top">
+        <!-- Desktop Navigation -->
+        <nav class="nav-links">
           <a
             href="{{ url_for('official_home') }}"
-            class="{{ 'is-active' if section == 'official' else '' }}"
+            class="{{ 'active' if ep == 'official_home' else '' }}"
           >
-            Find A Job!
+            Find a Job
           </a>
+
+          <a
+            href="{{ url_for('my_jobs') }}"
+            class="{{ 'active' if ep == 'my_jobs' else '' }}"
+          >
+            My Jobs
+          </a>
+          <span class="divider">|</span>
+
           <a
             href="{{ url_for('forum_home') }}"
-            class="{{ 'is-active' if section == 'forum' else '' }}"
+            class="{{ 'active' if ep == 'forum_home' else '' }}"
           >
             Forum
-          </a>
-        </nav>
-
-        {% if section == "forum" %}
-        <nav class="nav-sub">
-          <a
-            href="{{ url_for('forum_home') }}"
-            class="{{ 'is-active' if ep in ['forum_home','forum_list'] else '' }}"
-          >
-            Main Page
           </a>
 
           <a
             href="{{ url_for('my_posts') }}"
-            class="{{ 'is-active' if ep == 'my_posts' else '' }}"
+            class="{{ 'active' if ep == 'my_posts' else '' }}"
           >
             My Posts
           </a>
-        </nav>
-        {% elif section == "official" %}
-        <nav class="nav-sub">
+          <span class="divider">|</span>
+
           <a
-            href="{{ url_for('official_home') }}"
-            class="{{ 'is-active' if ep == 'official_home' else '' }}"
+            href="{{ url_for('profile') }}"
+            class="{{ 'active' if ep == 'profile' else '' }}"
           >
-            Job Posts
-          </a>
-          <a
-            href="{{ url_for('my_jobs') }}"
-            class="{{ 'is-active' if ep == 'my_jobs' else '' }}"
-          >
-            My Jobs
+            Account
           </a>
         </nav>
-        {% endif %}
+
+        <!-- Mobile Menu Button -->
+        <button class="menu-toggle" id="menuToggle">☰</button>
       </div>
 
-      <div class="nav-right">
-        <a
-          href="{{ url_for('profile') }}"
-          class="btn-profile {% if request.endpoint == 'profile' %}is-active{% endif %}"
-          >👤 Profile</a
-        >
-      </div>
+      <!-- 📱 Mobile Dropdown Menu -->
+      <nav class="mobile-menu" id="mobileMenu">
+        <a href="{{ url_for('official_home') }}">Find a Job</a>
+        <a href="{{ url_for('my_jobs') }}">My Jobs</a>
+        <a href="{{ url_for('forum_home') }}">Forum</a>
+        <a href="{{ url_for('my_posts') }}">My Posts</a>
+        <a href="{{ url_for('profile') }}">Account</a>
+      </nav>
     </header>
 
-    <main class="wrap">
+    <!-- 🌟 Main Glass Container -->
+    <main class="main-glass">
       {% with messages = get_flashed_messages() %} {% if messages %}
       <ul class="flash">
         {% for m in messages %}
@@ -96,6 +88,16 @@
       {% endif %} {% endwith %} {% block container %}{% endblock %}
     </main>
 
-    <footer class="wrap"><small>© Jobhub</small></footer>
+    <footer class="footer">
+      <small>© 2025 The Firepit Job Hub. All rights reserved.</small>
+    </footer>
+
+    <script>
+      const menuToggle = document.getElementById("menuToggle");
+      const mobileMenu = document.getElementById("mobileMenu");
+      menuToggle.addEventListener("click", () => {
+        mobileMenu.classList.toggle("open");
+      });
+    </script>
   </body>
 </html>

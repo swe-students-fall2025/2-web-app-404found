@@ -1,14 +1,21 @@
-{% extends "base.html" %}
-{% block container %}
-<h2>Welcome, {{ username }}</h2>
+{% extends "base.html" %} {% block container %}
 
-<p>You are logged in as <strong>{{ username }}</strong>.</p>
+<div class="no-box">
+  <h2>Welcome, {{ username }}</h2>
+
+  <p>You are logged in as <strong>{{ username }}</strong>.</p>
+</div>
 
 <div class="actions">
   <a class="btn" href="{{ url_for('logout') }}">Log Out</a>
 
-  <form method="POST" action="{{ url_for('delete_account') }}" onsubmit="return confirm('Are you sure you want to delete your account?');">
+  <form
+    method="POST"
+    action="{{ url_for('delete_account') }}"
+    onsubmit="return confirm('Are you sure you want to delete your account?');"
+  >
     <button class="btn danger" type="submit">Delete Account</button>
   </form>
 </div>
+
 {% endblock %}

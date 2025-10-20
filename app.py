@@ -88,11 +88,8 @@ def official_home():
     page = int(request.args.get("page", 1))
     per_page = 20
     skip = (page - 1) * per_page
-    
-    in_search = (q != None)
 
     if q:
-
         seen = set()
         results = []
         fields = ["company", "title", "description", "location", "qualifications"]
@@ -105,19 +102,30 @@ def official_home():
         jobs_list = results
         total_jobs = len(results)
         has_next = False
-        
+
         for job in jobs_list:
             job["company"] = highlight_text(job.get("company", ""), q)
             job["title"] = highlight_text(job.get("title", ""), q)
-            job["employmentType"] = highlight_text(job.get("temploymentType", ""), q)
+            job["employmentType"] = highlight_text(job.get("employmentType", ""), q)
             job["description"] = highlight_text(job.get("description", ""), q)
             job["qualifications"] = highlight_text(job.get("qualifications", ""), q)
-            
     else:
         total_jobs = db.jobs.count_documents({})
         cursor = db.jobs.find().sort("datePosted", -1).skip(skip).limit(per_page)
         jobs_list = list(cursor)
         has_next = total_jobs > page * per_page
+        
+        
+    # Convert ObjectIds in job list to strings
+    for job in jobs_list:
+        job["_id"] = str(job["_id"])
+
+    # Convert user job IDs to strings for comparison
+    user_jobs = []
+    if "user_id" in session:
+        user = db.users.find_one({"_id": ObjectId(session["user_id"])})
+        if user and "my_jobs" in user:
+            user_jobs = [str(j) for j in user["my_jobs"]]
 
     return render_template(
         "official_home.html",
@@ -126,8 +134,11 @@ def official_home():
         has_next=has_next,
         q=q,
         section="official",
-        search = q
+        search=q,
+        user_jobs=user_jobs
     )
+
+
 
 
 @app.route("/add_to_my_jobs/<job_id>", methods=["POST"])

@@ -1,15 +1,15 @@
 
-:root{
-  --brand-color:#4b6cb7;
-  --brand-opposit-color:#374151;
-  --line:#e5e7eb;
-  --hover:#f3f4f6;
-  --text:#374151;
-  --font-family: 'Newsreader', system-ui, sans-serif;
-
-  --tab-w: 180px;  /* width per tab */
-  --tab-h: 44px;   /* height per tab */
-  --radius: 10px;
+/* ---------- VARIABLES ---------- */
+:root {
+  --brand-color: #4b6cb7;
+  --brand-dark: #374151;
+  --line: #e5e7eb;
+  --hover: #f3f4f6;
+  --text: #374151;
+  --container: 1000px;
+  --radius: 12px;
+  --header-height: 72px;
+  --font-family: "Newsreader", system-ui, sans-serif;
 }
 
 /* ===== Header Title (H1) ===== */
@@ -21,16 +21,164 @@ h1 {
   color: #1e3a8a;
   text-decoration: none;
 }
+h2 {
+  color:#f3f4f6 ;
+}
+.divider{
+  color: rgb(142, 139, 139);
+  
+}
+
+.h2-container{
+  display: flex;
+  justify-content: center; /* Centers horizontally */
+  align-items: center; /* Centers vertically */
+}
+
+
 
 a:visited {
   color: #1e3a8a; /* Example: Sets visited links to blue */
   /* You can also add other styles like text-decoration: none; to remove underlines */
 }
 
-html, body {
-  background-color: rgb(245, 245, 245);
-  font-family: var(--font-family);
+
+
+/* ---------- GLOBAL RESET ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
+
+html,
+body {
+  font-family: var(--font-family);
+  color: var(--text);
+  background: url("https://images.unsplash.com/photo-1634206813008-d1c2b828c7fd?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=3126")
+    no-repeat center center fixed;
+  background-size: cover;
+}
+
+/* ---------- HEADER (FIXED, GLASS STYLE) ---------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  z-index: 1000;
+  background: rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.nav-container {
+  max-width: var(--container);
+  margin: 0 auto;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+}
+
+/* LOGO */
+.logo {
+  font-family: "Poppins", sans-serif;
+  font-weight: 700;
+  font-size: 1.5rem;
+  background: linear-gradient(90deg, #fd5f37, #feb47b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-decoration: none;
+}
+/* NAV LINKS */
+.nav-links {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.nav-links a {
+  color: #f3f4f6;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.25s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #60a5fa;
+  background: linear-gradient(90deg, #aacdf9, #3f90f2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* MOBILE MENU TOGGLE */
+.menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.8rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* MOBILE MENU */
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  position: absolute;
+  top: var(--header-height);
+  left: 0;
+  width: 100%;
+}
+
+.mobile-menu a {
+  color: white;
+  padding: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  text-decoration: none;
+}
+
+.mobile-menu a:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.mobile-menu.open {
+  display: flex;
+}
+
+/* RESPONSIVE NAVIGATION */
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+}
+
+main.wrap {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(16px); 
+  -webkit-backdrop-filter: blur(16px); /*for safari*/
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  padding: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+
+
+
 
 /* ====== GLOBAL LAYOUT ====== */
 .wrap {
@@ -124,19 +272,45 @@ button {
   border-color: #ef4444;
 }
 
+/* ===== "Added to My Jobs" Button (glassmorphic finish) ===== */
 .btn.added {
-  background-color: var(--brand-opposit-color);
+  background: linear-gradient(135deg, rgba(75,108,183,0.9), rgba(255,138,101,0.9));
+  background: linear-gradient(90deg, #8ca973, #74a895);
   color: #fff;
-  border-color: var(--brand-color);
+  border: none;
   cursor: default;
-  box-shadow: 0 2px 8px rgba(183, 109, 75, 0.25);
-  transition: all 0.2s ease;
-}
-.btn.added:hover {
-  transform: none;
-  box-shadow: 0 2px 8px rgba(75,108,183,0.25);
+  border-radius: 10px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  box-shadow: 0 4px 12px rgba(75,108,183,0.25);
+  backdrop-filter: blur(6px);
+  transition: all 0.3s ease;
 }
 
+/* Subtle “locked” appearance on hover — no scaling but shimmer feedback */
+.btn.added:hover {
+  transform: none;
+  box-shadow: 0 4px 14px rgba(255,138,101,0.3);
+  background: linear-gradient(135deg, rgba(75,108,183,1), rgba(255,138,101,1));
+  background: linear-gradient(90deg, #7e9867, #628d7d);
+}
+
+/* Optional subtle glow animation when first added */
+@keyframes addedPulse {
+  0% {
+    box-shadow: 0 0 0 rgba(75,108,183,0.5);
+  }
+  50% {
+    box-shadow: 0 0 16px rgba(255,138,101,0.6);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(75,108,183,0.5);
+  }
+}
+
+.btn.added.animate {
+  animation: addedPulse 1.5s ease-out;
+}
 
 .meta {
   color: #6b7280;
@@ -477,4 +651,62 @@ mark {
 .btn.danger:hover {
   background-color: #fca5a5;
   color: white;
+}
+
+
+/* ===== Main Glass Body ===== */
+.main-glass {
+  
+  margin-top: 100px; /* space for fixed header */
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(18px);
+  border-radius: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  padding: 2rem;
+  max-width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ===== Footer ===== */
+.footer {
+  text-align: center;
+  color: #ddd;
+  margin: 2rem 0;
+  font-size: 0.9rem;
+}
+
+
+/* ===== Pages without content box ===== */
+.no-box {
+  color: #f9f9f9;
+}
+
+.no-box h1,
+.no-box h2,
+.no-box h3,
+.no-box strong,
+.no-box b {
+  color: #ffffff;
+}
+
+.no-box p,
+.no-box li,
+.no-box div,
+.no-box span {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.no-box a {
+  color: #aad4ff;
+  text-decoration: underline;
+}
+
+.no-box a:hover {
+  color: #ffffff;
+}
+
+/* Add a soft text shadow for readability */
+.no-box * {
+  /* text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6); */
 }

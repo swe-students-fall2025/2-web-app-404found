@@ -1,26 +1,29 @@
-{% extends "base.html" %}
-{% block container %}
+{% extends "base.html" %} {% block container %}
 <h2>{{ doc.title }}</h2>
-<p class="meta">by {{ doc.name }}</p>
-<p>{{ doc.message }}</p>
+<div class="no-box">
+  <p class="meta">by {{ doc.name }}</p>
+  <p>{{ doc.message }}</p>
 
-<hr>
+  <hr />
 
-<h3>Add a comment</h3>
-<form method="POST" action="{{ url_for('add_comment', pid=pid) }}"  class="card">
+  <h3>Add a comment</h3>
+</div>
+<form method="POST" action="{{ url_for('add_comment', pid=pid) }}" class="card">
   <textarea name="cmessage" placeholder="Your comment" required></textarea>
   <button type="submit">Post Comment</button>
 </form>
 
-<hr>
-<h3>Comments</h3>
-<ul class="list">
-  {% for c in comms %}
+<hr />
+<div class="no-box">
+  <h3>Comments</h3>
+  <ul class="list">
+    {% for c in comms %}
     <li class="item" id="c-{{ c._id }}">
       <div class="comment-header">
         <strong>{{ c.name }}</strong>
         <span class="meta">
-          — {{ c.created_at.strftime('%Y-%m-%d %H:%M') if c.created_at else '' }}
+          — {{ c.created_at.strftime('%Y-%m-%d %H:%M') if c.created_at else ''
+          }}
         </span>
       </div>
 
@@ -29,33 +32,45 @@
       </div>
 
       {% if c.replies_full and c.replies_full|length > 0 %}
-        <ul class="replies">
-          {% for r in c.replies_full %}
-            <li class="reply">
-              <div>
-                <strong>{{ r.name }}</strong>
-                <span class="meta">— {{ r.created_at.strftime('%Y-%m-%d %H:%M') if r.created_at else '' }}</span>
-              </div>
-              <div class="reply-body">
-                <p>{{ r.message }}</p>
-              </div>
-            </li>
-          {% endfor %}
-        </ul>
+      <ul class="replies">
+        {% for r in c.replies_full %}
+        <li class="reply">
+          <div>
+            <strong>{{ r.name }}</strong>
+            <span class="meta"
+              >— {{ r.created_at.strftime('%Y-%m-%d %H:%M') if r.created_at else
+              '' }}</span
+            >
+          </div>
+          <div class="reply-body">
+            <p>{{ r.message }}</p>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
       {% endif %}
 
-      
       <details class="reply-section">
         <summary>Add a reply</summary>
-        <form method="POST" action="{{ url_for('reply_to_comments', pid=pid, cid=c._id) }}" class="inline-form">
-          <input type="text" name="rmessage" placeholder="Write a reply…" required>
+        <form
+          method="POST"
+          action="{{ url_for('reply_to_comments', pid=pid, cid=c._id) }}"
+          class="inline-form"
+        >
+          <input
+            type="text"
+            name="rmessage"
+            placeholder="Write a reply…"
+            required
+          />
           <button type="submit">Send</button>
         </form>
       </details>
     </li>
-  {% else %}
+    {% else %}
     <li>No comments yet</li>
-  {% endfor %}
-</ul>
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock %}

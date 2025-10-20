@@ -1,14 +1,16 @@
 {% extends "base.html" %} {% block container %}
-<h2>{{ job.title }}</h2>
-<p><strong>Company:</strong> {{ job.company }}</p>
-<p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
-<p><strong>Location:</strong> {{ job.location|join(', ') }}</p>
-<p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
-<p><strong>Qualifications:</strong></p>
-<div>{{ job.qualifications|safe }}</div>
+<div class="no-box">
+  <h2>{{ job.title }}</h2>
+  <p><strong>Company:</strong> {{ job.company }}</p>
+  <p><strong>Date Posted:</strong> {{ job.datePosted }}</p>
+  <p><strong>Location:</strong> {{ job.location|join(', ') }}</p>
+  <p><strong>Employment Type:</strong> {{ job.employmentType }}</p>
+  <p><strong>Qualifications:</strong></p>
+  <div>{{ job.qualifications|safe }}</div>
 
-<p><strong>Description:</strong></p>
-<div>{{ job.description|safe }}</div>
+  <p><strong>Description:</strong></p>
+  <div>{{ job.description|safe }}</div>
 
-<a href="{{ job.url }}" target="_blank">Apply on Company Website</a>
+  <a href="{{ job.url }}" target="_blank">Apply on Company Website</a>
+</div>
 {% endblock %}
