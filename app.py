@@ -7,7 +7,6 @@ from dotenv import load_dotenv
 from datetime import timedelta
 import os
 from collections import defaultdict
-
 # load .env file
 load_dotenv()
 
@@ -84,7 +83,7 @@ def official_home():
     has_next = total_jobs > page * per_page
 
     # Get user's saved jobs
-    user_jobs = []
+    my_jobs = []
     if "user_id" in session:
         user = db.users.find_one({"_id": ObjectId(session["user_id"])})
         if user and "my_jobs" in user and user["my_jobs"]:
@@ -95,7 +94,7 @@ def official_home():
         jobs=jobs,
         page=page,
         has_next=has_next,
-        user_jobs=user_jobs,
+        user_jobs=my_jobs,
         section="official"
     )
 
@@ -269,12 +268,11 @@ def post_detail(pid):
     comms = list(comments.find({"post_id": _id}).sort("created_at", -1))
     comment_ids = [c["_id"] for c in comms]
     reps = list(replies.find({"post_id": _id, "parent_comment_id": {"$in": comment_ids}}).sort("created_at", -1))
-
     by_parent = defaultdict(list)
     for r in reps:
         by_parent[r["parent_comment_id"]].append(r)
 
-    # attach replies to their parent comments (but the data base structure remains unchanged)
+    # attach the full replies to each comments in back-end
     for c in comms:
         c["replies_full"] = by_parent.get(c["_id"], [])
 
@@ -285,7 +283,6 @@ def post_detail(pid):
         section="forum",
         pid=pid
     )
-
 
 @app.route("/post/<pid>/comment/add", methods=["GET", "POST"])
 def add_comment(pid):
@@ -336,9 +333,13 @@ def edit_post(pid):
 def delete_post(pid):
     """Delete a post:
        - Triggered by 'Delete' button form submission"""
+    if "username" not in session:
+        flash("Please log in.", "warning")
+        return redirect(url_for("login"))
     _id = oid(pid)
     posts.delete_one({"_id": _id})
     comments.delete_many({"post_id": _id})
+    replies.delete_many({"post_id": _id})
     flash("Post deleted")
     return redirect(url_for("my_posts"))
 
@@ -382,10 +383,10 @@ def reply_to_comments(pid, cid):
     rid = rep.inserted_id
     comments.update_one(
         {"_id": _cid},
-        {"$addToSet": {"replies": rid}} # add reply id to parent comment
+        {"$addToSet": {"replies": rid}}
     )
     flash("Reply added!")
-    return redirect(url_for("post_detail", pid=pid))
+    return redirect(url_for("post_detail", pid=pid) +  f"#c-{cid}")
 
 
 if __name__ == "__main__":
