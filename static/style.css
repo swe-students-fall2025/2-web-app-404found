@@ -448,6 +448,15 @@ mark {
   color: #111;
   padding: 0 2px;
   border-radius: 3px;
+  animation: glow 0.6s ease-in-out;
+}
+
+@keyframes glow {
+  from { background-color: #fef3c7; }
+  to { background-color: #facc15; }
+}
+
+mark {
   animation: pulse 1.5s infinite;
 }
 
@@ -456,6 +465,8 @@ mark {
   50% { background-color: #fde68a; }
   100% { background-color: #fef3c7; }
 }
+
+
 
 .btn.danger {
   background-color: #fee2e2;

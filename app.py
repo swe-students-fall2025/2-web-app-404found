@@ -109,7 +109,9 @@ def official_home():
         for job in jobs_list:
             job["company"] = highlight_text(job.get("company", ""), q)
             job["title"] = highlight_text(job.get("title", ""), q)
+            job["employmentType"] = highlight_text(job.get("temploymentType", ""), q)
             job["description"] = highlight_text(job.get("description", ""), q)
+            job["qualifications"] = highlight_text(job.get("qualifications", ""), q)
             
     else:
         total_jobs = db.jobs.count_documents({})
